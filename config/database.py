@@ -10,6 +10,7 @@ def conectar_banco():
             dbname = 'flowcoffee',
             user = 'postgres',
             password = '26172107'
+            port = '5432'
         )
         print('Banco de dados conectado com sucesso!')
         return conn
