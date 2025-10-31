@@ -7,7 +7,7 @@ def conectar_banco():
     try:
         conn = psycopg2.connect(
             host = 'localhost',
-            database = 'flowcoffee',
+            dbname = 'flowcoffee',
             user = 'postgres',
             password = '26172107'
         )
