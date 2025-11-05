@@ -1,4 +1,4 @@
-from psycopg2.errors import UniqueViolation
+from psycopg2.errors import UniqueViolation, col
 from config.database import conectar_banco
 
 def cadastro_funcionario(nome: str, cpf: str, senha: str, cargo: str):
@@ -6,7 +6,7 @@ def cadastro_funcionario(nome: str, cpf: str, senha: str, cargo: str):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, cargo) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, senha, cargo) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (nome, cpf, senha, cargo))
         con.commit()
         print(f"Usuário {cpf} cadastrado com sucesso !")
@@ -22,6 +22,16 @@ def cadastro_funcionario(nome: str, cpf: str, senha: str, cargo: str):
 
 def login(cpf, senha):
     try:
-        pass
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s"
+        cursor.execute(sql, (cpf, senha))
+        user = cursor.fetchone()
+        #[id, nome, cpf, cargo, senha]
+        return user 
     except Exception as erro:
-        pass
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
