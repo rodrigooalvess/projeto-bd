@@ -1,13 +1,13 @@
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 
-def cadastro_funcionario(nome: str, cpf: str, cargo: str):
+def cadastro_funcionario(nome: str, cpf: str, senha: str, cargo: str):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, cargo) VALUES (%s, %s, %s)"
-        cursor.execute(sql, (nome, cpf, cargo))
+        sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, cargo) VALUES (%s, %s, %s, %s)"
+        cursor.execute(sql, (nome, cpf, senha, cargo))
         con.commit()
         print(f"Usuário {cpf} cadastrado com sucesso !")
 
@@ -19,3 +19,9 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str):
     finally:
         cursor.close()
         con.close()
+
+def login(cpf, senha):
+    try:
+        pass
+    except Exception as erro:
+        pass
