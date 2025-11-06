@@ -1,0 +1,1 @@
+from .user_view import funcionario_painel
