@@ -40,11 +40,14 @@ def procurar_cliente(cpf):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT * FROM CLIENTES WHERE id_cliente = %s"
+        sql = "SELECT id_cliente FROM CLIENTES WHERE cpf = %s"
         cursor.execute(sql, (cpf))
 
-        cliente = cursor.fetchone()
-        return cliente
+        id_cliente = cursor.fetchone()
+        if id_cliente:
+            return id_cliente
+        else:
+            return None
     except Exception as erro:
         print(f"Erro: {erro}")
     finally:
