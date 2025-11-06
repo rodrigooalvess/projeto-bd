@@ -32,6 +32,7 @@ def admin_painel():
                 time.sleep(3)
         except ValueError:
             print("Opção Inválida, Digite um Número")
+            time.sleep(3)
 
 def caixa_painel():
     while True:
@@ -69,6 +70,7 @@ def caixa_painel():
                 time.sleep(3)
         except ValueError:
             print("Opção Inválida, Digite um Número")
+            time.sleep(3)
 
 def entregador_painel():
     pass

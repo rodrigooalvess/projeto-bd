@@ -1,3 +1,4 @@
+import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 
@@ -32,6 +33,7 @@ def login(cpf, senha):
         return user 
     except Exception as erro:
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -53,6 +55,7 @@ def listar_funcionarios():
             print("Nenhum Funcionário Cadastrado")
     except Exception as erro:
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()

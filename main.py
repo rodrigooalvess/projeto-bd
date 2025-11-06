@@ -1,4 +1,5 @@
 import os
+import time
 import getpass
 from services import login, clear
 from view import caixa_painel, admin_painel, entregador_painel
@@ -29,6 +30,7 @@ def main():
                 break
         except ValueError:
             print("Opção Inválida, Digite um Número!")
+            time.sleep(3)
 
 if __name__ == "__main__":
     main()
