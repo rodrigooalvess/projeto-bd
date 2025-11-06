@@ -46,6 +46,7 @@ def listar_funcionarios():
         users = cursor.fetchall()
         #[(id1, nome1), (id2,nome2), ...]
         if users:
+            print("-----LISTANDO FUNCIONARIOS-----")
             for id, nome in users:
                 print(f"{id} - {nome}")
         elif not users:
@@ -55,3 +56,23 @@ def listar_funcionarios():
     finally:
         cursor.close()
         con.close()
+
+#def excluir_funcionario():
+#    try:
+#        con = conectar_banco()
+#        cursor = con.cursor()
+#
+#       sql = "DELET FROM FUNCIONARIOS WHERE cpf_funcionario = %s"
+#        cursor.execute(sql)
+#        users = cursor.fetchall()
+#        #[(id1, nome1), (id2,nome2), ...]
+#        if users:
+#            for id, nome in users:
+#                print(f"{id} - {nome}")
+#        elif not users:
+#            print("Nenhum Funcionário Cadastrado")
+#    except Exception as erro:
+#        print(f"Erro: {erro}")
+#    finally:
+#        cursor.close()
+#        con.close()
