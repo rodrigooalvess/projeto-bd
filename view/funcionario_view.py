@@ -17,8 +17,12 @@ def admin_painel():
                 listar_funcionarios()
             elif opc == 3:
                 print("-----EXCLUIR FUNCIONÁRIO-----")
-            
-                
+            elif opc == 4:
+                pass
+            elif opc == 5:
+                break
+            else:
+                print("Digite uma Opção Válida")
         except TypeError:
             print("Opção Inválida, Digite um Número")
 
