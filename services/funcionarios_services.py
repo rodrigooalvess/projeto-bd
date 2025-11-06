@@ -1,4 +1,4 @@
-from psycopg2.errors import UniqueViolation, col
+from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 
 def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
