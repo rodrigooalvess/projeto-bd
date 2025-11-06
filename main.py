@@ -1,22 +1,24 @@
 import os
 import getpass
-from services import login
+from services import login, clear
 from view import caixa_painel, admin_painel, entregador_painel
 
 def main():
     while True: 
         try:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            clear()
             print("1 - LOGIN \n2 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
+                clear()
                 print("-----LOGIN-----")
                 usuario = input("Usuário (CPF): ")
                 senha = getpass.getpass("Senha: ")
                 logged = login(usuario, senha)
                 if logged:
-                    print(f"Seja Bem-Vindo {usuario}")
+                    clear()
+                    print(f"Seja Bem-Vindo {usuario}\n")
                     if logged[3].lower() == "admin" or logged[3].lower() == "chefe":
                         admin_painel()
                     elif logged[3].lower() == "caixa":

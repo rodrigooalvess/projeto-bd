@@ -1,12 +1,14 @@
-import os
-from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios
+from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear
+import time
 
 def admin_painel():
     while True:
         try:
+            clear()
             print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - REMOVER FUNCIONARIO \n4 - LISTAR PEDIDOS \n5 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
+                clear()
                 print("-----CADASTRO-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
@@ -14,25 +16,32 @@ def admin_painel():
                 senha = input("Senha: ")
                 cadastro_funcionario(nome, cpf, cargo, senha)
             elif opc == 2:
+                clear()
                 listar_funcionarios()
             elif opc == 3:
+                clear()
                 print("-----EXCLUIR FUNCIONÁRIO-----")
             elif opc == 4:
+                clear()
                 pass
             elif opc == 5:
+                clear()
                 break
             else:
                 print("Digite uma Opção Válida")
+                time.sleep(3)
         except TypeError:
             print("Opção Inválida, Digite um Número")
 
 def caixa_painel():
     while True:
         try:
+            clear()
             print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
+                clear()
                 print("-----CADASTRO DE CLIENTE-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
@@ -43,17 +52,21 @@ def caixa_painel():
                 else:
                     cadastrar_cliente(nome, cpf)
             elif opc == 2:
+                clear()
                 print("-----ENDEREÇO-----")
                 cpf = validar_cpf()
                 id = procurar_cliente(cpf)
                 endereco = input("Endereço: ")
                 atualizar_endereco(id, endereco)
             elif opc == 3:
+                clear()
                 pass
             elif opc == 4:
+                clear()
                 break
             else:
                 print("Digite uma Opção Válida")
+                time.sleep(3)
         except TypeError:
             print("Opção Inválida, Digite um Número")
 
