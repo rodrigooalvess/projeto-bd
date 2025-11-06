@@ -1,5 +1,18 @@
 import os
-from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente
+from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario
+
+def admin_painel():
+    while True:
+        try:
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - REMOVER FUNCIONARIO \n4 - LISTAR PEDIDOS \n5 - SAIR")
+            opc = int(input("Digite uma Opção: "))
+            if opc == 1:
+                print("-----CADASTRO-----")
+                nome = input("Nome: ")
+                cpf = validar_cpf()
+                cargo = input("Cargo: ").lower()
+                senha = input("Senha: ")
+                cadastro_funcionario(nome, cpf, cargo, senha)
 
 def caixa_painel():
     while True:
@@ -31,3 +44,6 @@ def caixa_painel():
                 print("Digite uma Opção Válida")
         except TypeError:
             print("Opção Inválida, Digite um Número")
+
+def entregador_painel():
+    pass
