@@ -1,5 +1,5 @@
 import os
-from services import login, validar_cpf
+from services import login
 from view import caixa_painel
 
 def main():
