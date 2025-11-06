@@ -1,1 +1,1 @@
-from .user_view import funcionario_painel
+from .user_view import caixa_painel
