@@ -1,6 +1,6 @@
 import os
 from services import login
-from view import caixa_painel
+from view import caixa_painel, admin_painel, entregador_painel
 
 def main():
     while True: 
@@ -16,7 +16,12 @@ def main():
                 logged = login(usuario, senha)
                 if logged:
                     print(f"Seja Bem-Vindo {usuario}")
-                    caixa_painel()
+                    if logged[3].lower() == "admin" or logged[3].lower() == "chefe":
+                        admin_painel()
+                    elif logged[3].lower() == "caixa":
+                        caixa_painel()
+                    elif logged[3].lower() == "entregador":
+                        entregador_painel()
             elif opc == 2:
                 break
         except TypeError:
