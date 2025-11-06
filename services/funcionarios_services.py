@@ -1,6 +1,7 @@
 import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
+from services import pause
 
 def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
     try:
@@ -15,8 +16,10 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
     except UniqueViolation:
         print(f"Erro: CPF {cpf} já cadstrado")
         con.rollback() #desfaz tudo que estava sendo feito na transação atual (commit) e retorna ao estado antes dela começar.
+        time.sleep(3)
     except Exception as erro:
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -51,9 +54,10 @@ def listar_funcionarios():
             print("-----LISTANDO FUNCIONARIOS-----")
             for id, nome in users:
                 print(f"{id} - {nome}")
-            input("Pressione Enter para Continuar!")
+            pause()
         elif not users:
             print("Nenhum Funcionário Cadastrado")
+            time.sleep(3)
     except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
