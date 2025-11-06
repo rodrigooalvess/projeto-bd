@@ -34,3 +34,19 @@ def atualizar_endereco(id_cliente: int, endereco: str):
     finally:
         cursor.close()
         con.close()
+
+def procurar_cliente(cpf):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT * FROM CLIENTES WHERE id_cliente = %s"
+        cursor.execute(sql, (cpf))
+
+        cliente = cursor.fetchone()
+        return cliente
+    except Exception as erro:
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
