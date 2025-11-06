@@ -1,4 +1,5 @@
 import os
+import getpass
 from services import login
 from view import caixa_painel, admin_painel, entregador_painel
 
@@ -12,7 +13,7 @@ def main():
             if opc == 1:
                 print("-----LOGIN-----")
                 usuario = input("Usuário (CPF): ")
-                senha = input("Senha: ")
+                senha = getpass.getpass("Senha: ")
                 logged = login(usuario, senha)
                 if logged:
                     print(f"Seja Bem-Vindo {usuario}")
