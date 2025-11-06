@@ -18,11 +18,11 @@ def main():
                 print("-----CADASTRO-----")
                 nome = input("Nome: ")
                 cpf = input("CPF: ") 
-                if cpf.len() != 11:
+                if len(cpf) != 11:
                     while True:
                         os.system('cls' if os.name == 'nt' else 'clear')
                         cpf = print("CPF Inválido, Digite Novamente: ")
-                        if cpf.len() == 11:
+                        if len(cpf) == 11:
                             break
                 cargo = input("Cargo: ").lower()
                 senha = input("Senha: ")
