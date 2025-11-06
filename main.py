@@ -4,6 +4,7 @@ from services import cadastro_funcionario, login
 def main():
     while True: 
         try:
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("1 - LOGIN \n2 - CADASTRO \n3 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
