@@ -1,7 +1,7 @@
 import os
 from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente
 
-def caixa_painel(funcionario):
+def caixa_painel():
     while True:
         try:
             print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - SAIR")
