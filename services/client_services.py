@@ -13,6 +13,7 @@ def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
         print(f"Cliente {cpf} cadastrado com sucesso!")
     except UniqueViolation:
         print(f"Cliente {cpf} já cadastrado")
+        con.rollback()
     except Exception as erro:
         print(f"Erro ao cadastrar cliente: {erro}")
     finally:
