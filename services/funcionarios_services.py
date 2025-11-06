@@ -1,7 +1,7 @@
 from psycopg2.errors import UniqueViolation, col
 from config.database import conectar_banco
 
-def cadastro_funcionario(nome: str, cpf: str, senha: str, cargo: str):
+def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
     try:
         con = conectar_banco()
         cursor = con.cursor()
