@@ -1,5 +1,6 @@
 import os
-from services import cadastro_funcionario, login, validar_cpf, cadastrar_cliente
+from services import cadastro_funcionario, login, validar_cpf
+from view import caixa_painel
 
 def main():
     while True: 
@@ -15,6 +16,7 @@ def main():
                 logged = login(usuario, senha)
                 if logged:
                     print(f"Seja Bem-Vindo {usuario}")
+                    caixa_painel()
             elif opc == 2:
                 print("-----CADASTRO-----")
                 nome = input("Nome: ")
