@@ -1,1 +1,1 @@
-from .funcionario_view import caixa_painel
+from .funcionario_view import caixa_painel, admin_painel, entregador_painel
