@@ -25,7 +25,7 @@ def login(cpf, senha):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s"
+        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
         cursor.execute(sql, (cpf, senha))
         user = cursor.fetchone()
         #[id, nome, cpf, cargo, senha]
