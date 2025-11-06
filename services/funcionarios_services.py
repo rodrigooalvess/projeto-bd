@@ -51,6 +51,7 @@ def listar_funcionarios():
             print("-----LISTANDO FUNCIONARIOS-----")
             for id, nome in users:
                 print(f"{id} - {nome}")
+            input("Pressione Enter para Continuar!")
         elif not users:
             print("Nenhum Funcionário Cadastrado")
     except Exception as erro:
