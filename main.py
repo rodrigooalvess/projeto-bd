@@ -1,12 +1,12 @@
 import os
-from services import cadastro_funcionario, login, validar_cpf
+from services import login, validar_cpf
 from view import caixa_painel
 
 def main():
     while True: 
         try:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print("1 - LOGIN \n2 - CADASTRO \n3 - SAIR")
+            print("1 - LOGIN \n2 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
@@ -18,13 +18,6 @@ def main():
                     print(f"Seja Bem-Vindo {usuario}")
                     caixa_painel()
             elif opc == 2:
-                print("-----CADASTRO-----")
-                nome = input("Nome: ")
-                cpf = validar_cpf()
-                cargo = input("Cargo: ").lower()
-                senha = input("Senha: ")
-                cadastro_funcionario(nome, cpf, cargo, senha)
-            elif opc == 3:
                 break
         except TypeError:
             print("Opção Inválida, Digite um Número!")
