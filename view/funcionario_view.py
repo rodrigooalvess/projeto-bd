@@ -1,5 +1,5 @@
 import os
-from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario
+from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios
 
 def admin_painel():
     while True:
@@ -13,6 +13,14 @@ def admin_painel():
                 cargo = input("Cargo: ").lower()
                 senha = input("Senha: ")
                 cadastro_funcionario(nome, cpf, cargo, senha)
+            elif opc == 2:
+                listar_funcionarios()
+            elif opc == 3:
+                print("-----EXCLUIR FUNCIONÁRIO-----")
+            
+                
+        except TypeError:
+            print("Opção Inválida, Digite um Número")
 
 def caixa_painel():
     while True:
