@@ -12,7 +12,6 @@ def conectar_banco():
             password = '26172107',
             port = '5432'
         )
-        print('Banco de dados conectado com sucesso!')
         return conn
     
     except psycopg2.Error as erro:
