@@ -30,7 +30,7 @@ def admin_painel():
             else:
                 print("Digite uma Opção Válida")
                 time.sleep(3)
-        except TypeError:
+        except ValueError:
             print("Opção Inválida, Digite um Número")
 
 def caixa_painel():
@@ -67,7 +67,7 @@ def caixa_painel():
             else:
                 print("Digite uma Opção Válida")
                 time.sleep(3)
-        except TypeError:
+        except ValueError:
             print("Opção Inválida, Digite um Número")
 
 def entregador_painel():

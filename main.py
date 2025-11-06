@@ -27,7 +27,7 @@ def main():
                         entregador_painel()
             elif opc == 2:
                 break
-        except TypeError:
+        except ValueError:
             print("Opção Inválida, Digite um Número!")
 
 if __name__ == "__main__":
