@@ -4,7 +4,7 @@ from services import cadastro_funcionario, login
 def main():
     while True: 
         try:
-            print("1 - LOGIN \n2 - CADASTRO")
+            print("1 - LOGIN \n2 - CADASTRO \n3 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
@@ -18,15 +18,17 @@ def main():
                 print("-----CADASTRO-----")
                 nome = input("Nome: ")
                 cpf = input("CPF: ") 
-                if cpf.len != 11:
+                if cpf.len() != 11:
                     while True:
                         os.system('cls' if os.name == 'nt' else 'clear')
                         cpf = print("CPF Inválido, Digite Novamente: ")
-                        if cpf.len == 11:
+                        if cpf.len() == 11:
                             break
                 cargo = input("Cargo: ").lower()
                 senha = input("Senha: ")
                 cadastro_funcionario(nome, cpf, cargo, senha)
+            elif opc == 3:
+                break
         except TypeError:
             print("Opção Inválida, Digite um Número!")
         except Exception as erro:
