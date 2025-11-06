@@ -46,7 +46,7 @@ def listar_funcionarios():
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT id_funcionario, nome_funcionario FROM FUNCIONARIOS"
+        sql = "SELECT id_funcionario, nome_funcionario FROM FUNCIONARIOS ORDER BY cargo"
         cursor.execute(sql)
         users = cursor.fetchall()
         #[(id1, nome1), (id2,nome2), ...]
