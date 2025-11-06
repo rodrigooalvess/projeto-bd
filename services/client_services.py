@@ -1,5 +1,6 @@
 from config.database import conectar_banco
 from psycopg2.errors import UniqueViolation
+import time
 
 def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
     try:
@@ -11,6 +12,7 @@ def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
         con.commit()
 
         print(f"Cliente {cpf} cadastrado com sucesso!")
+        time.sleep(3)
     except UniqueViolation:
         print(f"Cliente {cpf} já cadastrado")
         con.rollback()
@@ -30,6 +32,7 @@ def atualizar_endereco(id_cliente: int, endereco: str):
         con.commit()
 
         print(f"Endereço atualizado com sucesso!")
+        time.sleep(3)
     except Exception as erro:
         print(f"Erro ao atualizar dados do cliente: {erro}")
     finally:
