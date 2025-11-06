@@ -13,7 +13,6 @@ def conectar_banco():
             port = '5432'
         )
         return conn
-    
     except psycopg2.Error as erro:
         print(f'Erro ao conectar banco de dados: {erro}')
         return None
