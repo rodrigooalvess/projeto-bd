@@ -1,11 +1,11 @@
-from services import cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto
+from services import alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos
 import time
 
 def admin_painel():
     while True:
         try:
             clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - REMOVER FUNCIONARIO \n4 - CADASTRAR PRODUTO \n5 - LISTAR PEDIDOS \n6 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - REMOVER FUNCIONARIO \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 clear()
@@ -28,6 +28,13 @@ def admin_painel():
                 categoria = input("A - ALIMENTOS \nC - CAFÉS \nB - BEBIDAS \nDIGITE UMA CATEGORIA: ").upper()
                 valor = float(input("Valor: "))
                 cadastrar_produto(nome, categoria, valor)
+            elif opc == 5:
+                clear()
+                print("-----ALTERAR VALOR DO PRODUTO-----")
+                listar_produtos()
+                id = int(input("Digite o Número do Produto: "))
+                valor_novo = float(input("Digite o Novo Valor: "))
+                alterar_produto(id, valor_novo)
             elif opc == 6:
                 clear()
                 break
