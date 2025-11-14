@@ -3,6 +3,23 @@ from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 from services import pause
 
+def login(cpf, senha):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
+        cursor.execute(sql, (cpf, senha))
+        user = cursor.fetchone()
+        #[id, nome, cpf, cargo, senha]
+        return user 
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
 def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
     try:
         con = conectar_banco()
@@ -17,23 +34,6 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
         print(f"Erro: CPF {cpf} já cadstrado")
         con.rollback() #desfaz tudo que estava sendo feito na transação atual (commit) e retorna ao estado antes dela começar.
         time.sleep(3)
-    except Exception as erro:
-        print(f"Erro: {erro}")
-        time.sleep(3)
-    finally:
-        cursor.close()
-        con.close()
-
-def login(cpf, senha):
-    try:
-        con = conectar_banco()
-        cursor = con.cursor()
-
-        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
-        cursor.execute(sql, (cpf, senha))
-        user = cursor.fetchone()
-        #[id, nome, cpf, cargo, senha]
-        return user 
     except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
