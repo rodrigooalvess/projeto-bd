@@ -27,8 +27,8 @@ def admin_painel():
                 nome = input("Nome: ").upper()
                 categoria = input("A - ALIMENTOS \nC - CAFÉS \nB - BEBIDAS \nDIGITE UMA CATEGORIA: ").upper()
                 valor = float(input("Valor: "))
-                cadastrar_produto(nome = "COCACOLA", categoria = "B", valor = 6)
-            elif opc == 5:
+                cadastrar_produto(nome, categoria, valor)
+            elif opc == 6:
                 clear()
                 break
             else:

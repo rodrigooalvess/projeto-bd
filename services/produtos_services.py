@@ -8,7 +8,7 @@ def cadastrar_produto(nome: str, categoria: str, valor: float):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "INSERT INTO PRODUTOS (nome_produto, categoria, valor_produto) values (%s, %s, %f)"
+        sql = "INSERT INTO PRODUTOS (nome_produto, categoria, valor_produto) values (%s, %s, %s)"
         cursor.execute(sql, (nome, categoria, valor))
         con.commit()
 
