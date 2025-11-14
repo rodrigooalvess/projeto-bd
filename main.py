@@ -1,11 +1,11 @@
-import os
 import time
 import getpass
 from services import login, clear
 from view import caixa_painel, admin_painel, entregador_painel
 
 def main():
-    while True: 
+    rodando = True
+    while rodando: 
         try:
             clear()
             print("1 - LOGIN \n2 - SAIR")
@@ -20,6 +20,7 @@ def main():
                 if logged:
                     clear()
                     print(f"Seja Bem-Vindo {usuario}\n")
+                    time.sleep(3)
                     if logged[3].lower() == "admin" or logged[3].lower() == "chefe":
                         admin_painel()
                     elif logged[3].lower() == "caixa":
@@ -27,7 +28,7 @@ def main():
                     elif logged[3].lower() == "entregador":
                         entregador_painel()
             elif opc == 2:
-                break
+                rodando = False
         except ValueError:
             print("Opção Inválida, Digite um Número!")
             time.sleep(3)
