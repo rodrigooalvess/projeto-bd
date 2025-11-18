@@ -1,11 +1,11 @@
-from services import alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos
+from services import desativar_funcionario, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos
 import time
 
 def admin_painel():
     while True:
         try:
             clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - REMOVER FUNCIONARIO \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATUALIZAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 clear()
@@ -20,7 +20,14 @@ def admin_painel():
                 listar_funcionarios()
             elif opc == 3:
                 clear()
-                print("-----EXCLUIR FUNCIONÁRIO-----")
+                print("-----ATUALIZAR FUNCIONÁRIO-----")
+                alt = int(input("1 - DESATIVAR FUNCIONÁRIO \n2 - REATIVAR FUNCIONÁRIO \nDigite: "))
+                if alt == 1:
+                    cpf = input("Digite o CPF do Funcionário: ")
+                    desativar_funcionario(cpf)
+                elif alt == 2:
+                    cpf = input("Digite o CPF do Funcionário: ")
+                    reativar_funcionario(cpf)
             elif opc == 4:
                 clear()
                 print("-----CADASTRAR PRODUTOS-----")

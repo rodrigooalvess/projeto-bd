@@ -74,7 +74,10 @@ def desativar_funcionario(cpf):
         sql = "UPDATE FUNCIONARIOS SET ativo = false WHERE cpf_funcionario = %s"
         cursor.execute(sql, (cpf))
         con.commit()
-        print(f"Funcionário {cpf} desativado com sucesso!")
+        if cursor.rowcount > 0: # rowcount conta quantas linhas foram alteradas no update
+            print(f"Funcionário {cpf} desativado com sucesso!")
+        else:
+            print("Nenhum Funcionário Encontrado")
     except Exception as erro:
         con.rollback()
         print(f"Erro: {erro}")
@@ -90,7 +93,10 @@ def reativar_funcionario(cpf):
         sql = "UPDATE FUNCIONARIOS SET ativo = true WHERE cpf_funcionario = %s"
         cursor.execute(sql, (cpf))
         con.commit()
-        print(f"Funcionário {cpf} reativado com sucesso!")     
+        if cursor.rowcount > 0:
+            print(f"Funcionário {cpf} reativado com sucesso!")
+        else:
+            print("Nenhum Funcionário Encontrado")     
     except Exception as erro:
         con.rollback()
         print(f"Erro: {erro}")
