@@ -2,6 +2,7 @@ from config.database import conectar_banco
 from psycopg2.errors import UniqueViolation
 import time
 
+
 def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
     try:
         con = conectar_banco()
