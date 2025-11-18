@@ -1,6 +1,7 @@
 from config.database import conectar_banco
 from psycopg2.errors import UniqueViolation
 import time
+from services import pause
 
 
 def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
@@ -57,6 +58,30 @@ def procurar_cliente(cpf):
             return id_cliente[0]
         else:
             return None
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
+def listar_clientes():
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT id_cliente, nome_cliente FROM FUNCIONARIOS ORDER BY cargo"
+        cursor.execute(sql)
+        users = cursor.fetchall()
+        #[(id1, nome1), (id2,nome2), ...]
+        if users:
+            print("-----LISTANDO CLIENTES-----")
+            for id, nome in users:
+                print(f"{id} - {nome}")
+            pause()
+        elif not users:
+            print("Nenhum Cliente Cadastrado")
+            time.sleep(3)
     except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
