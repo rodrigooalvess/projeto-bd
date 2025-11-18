@@ -1,15 +1,15 @@
-from services import desativar_funcionario, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos
+from services import desativar_funcionario, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
 import time
 
 def admin_painel(logged):
     while True:
         try:
             clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATUALIZAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATUALIZAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - DESATIVAR/REATIVAR PRODUTO \n7 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 clear()
-                print("-----CADASTRO-----")
+                print("-----CADASTRO DE FUNCIONÁRIO-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
                 cargo = input("Cargo: ").lower()
@@ -38,12 +38,22 @@ def admin_painel(logged):
             elif opc == 5:
                 clear()
                 print("-----ALTERAR VALOR DO PRODUTO-----")
-                listar_produtos()
+                listar_produtos_ativos()
                 id = int(input("Digite o Número do Produto: "))
                 valor_novo = float(input("Digite o Novo Valor: "))
                 alterar_produto(id, valor_novo)
             elif opc == 6:
                 clear()
+                alt = int(input("1 - DESATIVAR PRODUTO \n 2 - REATIVAR PRODUTO"))
+                if alt == 1:
+                    listar_produtos_ativos()
+                    idp = int(input("Digite o Número do Produto: "))
+                    desativar_produto(idp)
+                elif alt == 2:
+                    listar_produtos_inativos()
+                    idp = int(input("Digite o Número do Produto: "))
+                    reativar_produto(idp)
+            elif opc == 7:
                 break
             else:
                 print("Digite uma Opção Válida")
