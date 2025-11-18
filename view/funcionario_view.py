@@ -1,7 +1,7 @@
 from services import desativar_funcionario, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos
 import time
 
-def admin_painel():
+def admin_painel(logged):
     while True:
         try:
             clear()
@@ -52,7 +52,7 @@ def admin_painel():
             print("Opção Inválida, Digite um Número")
             time.sleep(3)
 
-def caixa_painel():
+def caixa_painel(logged):
     while True:
         try:
             clear()
@@ -90,5 +90,5 @@ def caixa_painel():
             print("Opção Inválida, Digite um Número")
             time.sleep(3)
 
-def entregador_painel():
+def entregador_painel(logeed):
     pass

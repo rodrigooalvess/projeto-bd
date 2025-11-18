@@ -8,7 +8,7 @@ def login(cpf, senha):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT cargo FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s and ativo = true"
+        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s and ativo = true"
         cursor.execute(sql, (cpf, senha))
         user = cursor.fetchone() # retorna somente um
         #[id, nome, cpf, cargo, senha] or None
