@@ -10,7 +10,7 @@ def login(cpf, senha):
 
         sql = "SELECT cargo FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s and ativo = true"
         cursor.execute(sql, (cpf, senha))
-        user = cursor.fetchone() # retorna somente um ONE
+        user = cursor.fetchone() # retorna somente um
         #[id, nome, cpf, cargo, senha] or None
         return user
     except Exception as erro:
