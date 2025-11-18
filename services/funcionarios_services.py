@@ -8,9 +8,9 @@ def login(cpf, senha):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT cargo FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
+        sql = "SELECT cargo FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s and ativo = true"
         cursor.execute(sql, (cpf, senha))
-        user = cursor.fetchone()
+        user = cursor.fetchone() # retorna somente um ONE
         #[id, nome, cpf, cargo, senha] or None
         return user
     except Exception as erro:
@@ -35,6 +35,7 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
         con.rollback() #desfaz tudo que estava sendo feito na transação atual (commit) e retorna ao estado antes dela começar.
         time.sleep(3)
     except Exception as erro:
+        con.rollback()
         print(f"Erro: {erro}")
         time.sleep(3)
     finally:
@@ -65,22 +66,34 @@ def listar_funcionarios():
         cursor.close()
         con.close()
 
-#def excluir_funcionario():
-#    try:
-#        con = conectar_banco()
-#        cursor = con.cursor()
-#
-#       sql = "DELET FROM FUNCIONARIOS WHERE cpf_funcionario = %s"
-#        cursor.execute(sql)
-#        users = cursor.fetchall()
-#        #[(id1, nome1), (id2,nome2), ...]
-#        if users:
-#            for id, nome in users:
-#                print(f"{id} - {nome}")
-#        elif not users:
-#            print("Nenhum Funcionário Cadastrado")
-#    except Exception as erro:
-#        print(f"Erro: {erro}")
-#    finally:
-#        cursor.close()
-#        con.close()
+def desativar_funcionario(cpf):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "UPDATE FUNCIONARIOS SET ativo = false WHERE cpf_funcionario = %s"
+        cursor.execute(sql, (cpf))
+        con.commit()
+        print(f"Funcionário {cpf} desativado com sucesso!")
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
+
+def reativar_funcionario(cpf):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "UPDATE FUNCIONARIOS SET ativo = true WHERE cpf_funcionario = %s"
+        cursor.execute(sql, (cpf))
+        con.commit()
+        print(f"Funcionário {cpf} reativado com sucesso!")     
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
