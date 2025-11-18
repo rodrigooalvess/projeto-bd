@@ -27,6 +27,8 @@ def main():
                         caixa_painel()
                     elif logged[3].lower() == "entregador":
                         entregador_painel()
+                elif not logged:
+                    print("Usuário ou Senha Incorretos!")
             elif opc == 2:
                 rodando = False
         except ValueError:

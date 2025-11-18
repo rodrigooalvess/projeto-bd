@@ -8,11 +8,11 @@ def login(cpf, senha):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
+        sql = "SELECT cargo FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s"
         cursor.execute(sql, (cpf, senha))
         user = cursor.fetchone()
-        #[id, nome, cpf, cargo, senha]
-        return user 
+        #[id, nome, cpf, cargo, senha] or None
+        return user
     except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
