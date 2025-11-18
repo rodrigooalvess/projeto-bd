@@ -72,7 +72,7 @@ def desativar_funcionario(cpf):
         cursor = con.cursor()
 
         sql = "UPDATE FUNCIONARIOS SET ativo = false WHERE cpf_funcionario = %s"
-        cursor.execute(sql, (cpf))
+        cursor.execute(sql, (cpf,)) # tem que ter , pra ser enviado com tupla
         con.commit()
         if cursor.rowcount > 0: # rowcount conta quantas linhas foram alteradas no update
             print(f"Funcionário {cpf} desativado com sucesso!")
@@ -91,7 +91,7 @@ def reativar_funcionario(cpf):
         cursor = con.cursor()
 
         sql = "UPDATE FUNCIONARIOS SET ativo = true WHERE cpf_funcionario = %s"
-        cursor.execute(sql, (cpf))
+        cursor.execute(sql, (cpf,))
         con.commit()
         if cursor.rowcount > 0:
             print(f"Funcionário {cpf} reativado com sucesso!")

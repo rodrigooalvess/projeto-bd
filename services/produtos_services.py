@@ -39,7 +39,7 @@ def listar_produtos_ativos():
         cursor.close()
         con.close()
 
-def alterar_produto(id, valor_novo):
+def alterar_produto(id: int, valor_novo: float):
     try:
         con = conectar_banco()
         cursor = con.cursor()
@@ -74,7 +74,7 @@ def listar_produtos_inativos():
         cursor.close()
         con.close()
 
-def desativar_produto(id):
+def desativar_produto(id: int):
     try:
         con = conectar_banco()
         cursor = con.cursor()
@@ -93,7 +93,7 @@ def desativar_produto(id):
         cursor.close()
         con.close()
 
-def reativar_produto(id):
+def reativar_produto(id: int):
     try:
         con = conectar_banco()
         cursor = con.cursor()
@@ -111,3 +111,35 @@ def reativar_produto(id):
     finally:
         cursor.close()
         con.close()
+
+def cardapio():
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria, FROM PRODUTOS WHERE ativo = true ORDER BY categoria"
+        cursor.execute(sql)
+        produtos = cursor.fetchall()
+        #[(idp1, nomep1, descp1, valorp1, categoriap1), (p2)...]
+        print("---CAFÉS---")
+        for id, nome, desc, valor, categoria in produtos:
+            if categoria == 'C':
+                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+        print("---BEBIDAS---")
+        for id, nome, desc, valor, categoria in produtos:
+            if categoria == 'B':
+                print(f"{id} - {nome} - R${valor:.2f}")
+        print("---SALGADOS---")
+        for id, nome, desc, valor, categoria in produtos:
+            if categoria == 'S':
+                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+        print("---DOCES---")
+        for id, nome, desc, valor, categoria in produtos:
+            if categoria == 'D':
+                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+    except Exception as erro:
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
+   

@@ -1,4 +1,4 @@
-from services import desativar_funcionario, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
+from services import calcular_valor_pedido, procurar_id_pedido, cardapio, desativar_funcionario, cadastrar_pedido, produtos_pedido, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
 import time
 
 def admin_painel(logged):
@@ -32,7 +32,7 @@ def admin_painel(logged):
                 clear()
                 print("-----CADASTRAR PRODUTOS-----")
                 nome = input("Nome: ").upper()
-                categoria = input("A - ALIMENTOS \nC - CAFÉS \nB - BEBIDAS \nDIGITE UMA CATEGORIA: ").upper()
+                categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper()
                 valor = float(input("Valor: "))
                 cadastrar_produto(nome, categoria, valor)
             elif opc == 5:
@@ -89,11 +89,30 @@ def caixa_painel(logged):
                 atualizar_endereco(id, endereco)
             elif opc == 3:
                 clear()
+                print("-----INICIAR PEDIDO-----")
                 cpf = validar_cpf()
                 id_cliente = procurar_cliente(cpf)
                 id_funcionario_responsavel = logged[0]
                 modalidade = input("L - LOCAL \n E - ENTREGA \nDigite: ")
-                listar_produtos_ativos()
+                cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
+                cardapio()
+                id_pedido = procurar_id_pedido(cpf)
+                if id_pedido:
+                    pedidos_produtos = True
+                    while pedidos_produtos:
+                        item = int(input("Digite o Número do Item Para Inserir no Pedido ou 0 Para Finalizar: "))
+                        if item == 0: pedidos_produtos = False
+                        qnt = int(input("Quantidade: "))
+                        obs = input("PRESSIONE ENTER SE NÃO HOUVER OBSERVAÇÃO \nObservação: ")
+                        produtos_pedido(id_pedido, item, qnt, obs)
+                        finalizar = int(input("1 - SIM \n2 - NÃO \nDeseja Inserir mais Itens no Pedido?: "))
+                        if finalizar == 2: pedidos_produtos = False
+                        elif finalizar == 1: pedidos_produtos = True    
+                    valor_total = calcular_valor_pedido(id_pedido)
+                    print(f"Valor Total do Pedido: {valor_total:.2f}")
+                    
+                nota = int(input("Deseja Nota Fiscal?"))
+
 
             elif opc == 4:
                 clear()
