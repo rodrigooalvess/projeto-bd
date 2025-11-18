@@ -89,7 +89,12 @@ def caixa_painel(logged):
                 atualizar_endereco(id, endereco)
             elif opc == 3:
                 clear()
-                pass
+                cpf = validar_cpf()
+                id_cliente = procurar_cliente(cpf)
+                id_funcionario_responsavel = logged[0]
+                modalidade = input("L - LOCAL \n E - ENTREGA \nDigite: ")
+                listar_produtos_ativos()
+
             elif opc == 4:
                 clear()
                 break
