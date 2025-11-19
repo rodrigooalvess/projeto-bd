@@ -21,6 +21,26 @@ def cadastrar_pedido(id_cliente: int, id_funcionario: int, modalidade: str):
         cursor.close()
         con.close()
 
+def pagamento_pedido(modo_de_pagamento):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "INSERT INTO PEDIDOS (pagamento) values (%s)"
+        cursor.execute(sql, (modo_de_pagamento,))
+        con.commit()
+
+        print("Pagamento Realizado Com Sucesso!")
+
+        time.sleep(3)
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        con.rollback()
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
 def produtos_pedido(id_pedido, id_produto, quantidade, obs = ""):
     try:
         con = conectar_banco()
@@ -61,7 +81,7 @@ def mostrar_resumo_pedido(id_cliente, id_pedido):
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT nome_produto, quantidade, (quantidade*valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
+        sql = "SELECT pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
         cursor.execute(sql, (id_pedido, id_cliente))
         resumo = cursor.fetchall()
         return resumo
@@ -159,6 +179,28 @@ def associar_pedido_entregador(id_pedido, id_entregador):
 
     except Exception as erro:
         con.rollback()
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
+def buscar_pedido(id_cliente):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql1 = "SELECT id_pedido FROM PEDIDOS WHERE id_cliente = %s and status = 'P'"
+        cursor.execute(sql1, (id_cliente,))
+        id_pedido = cursor.fetchone()
+        if not id_pedido: return None
+
+        sql = "SELECT pp.id_pedido, pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item, FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
+        cursor.execute(sql, (id_pedido, id_cliente))
+        resumo = cursor.fetchall()
+        return resumo
+
+    except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
     finally:

@@ -1,6 +1,6 @@
 from utils import function_clear, validar_cpf
 from services import cadastrar_cliente, procurar_id_cliente, atualizar_endereco
-from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes, associar_pedido_delivery
+from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes, associar_pedido_delivery, buscar_pedido, pagamento_pedido
 from services import procurar_produto
 import time
 
@@ -8,7 +8,7 @@ def caixa_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - INICIAR PEDIDO \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - BUSCAR PRODUTO \n4 - LISTAR PEDIDOS PENDENTES \n5 - SAIR")
+            print("1 - INICIAR PEDIDO \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - BUSCAR PRODUTO \n4 - LISTAR PEDIDOS PENDENTES \n5 - BUSCAR PEDIDO \n6 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
@@ -59,6 +59,13 @@ def caixa_painel(logged):
                     for nome, quantidade, valorTotal in resumo_pedido:
                         print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
                     print(f"Valor Total do Pedido: {valor_total:.2f}")
+                    
+                    metodo = input("\nP - PIX \nC - CARTÃO DÉBITO/CRÉDITO \nD - DINHEIRO \nMétodo de Pagamento: ").upper()
+                    if metodo != 'P' or 'C' or 'D':
+                        while True:
+                            metodo = input("\nDigite um Método Válido \nP - PIX \nC - CARTÃO DÉBITO/CRÉDITO \nD - DINHEIRO \nMétodo de Pagamento: ").upper()
+                            if metodo == 'P' or 'C' or 'D': break
+                    pagamento_pedido(metodo)
 
             elif opc == 2:
                 function_clear()
@@ -86,6 +93,21 @@ def caixa_painel(logged):
                     print(f"{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
 
             elif opc == 5:
+                print("-----DETALHES DE UM PEDIDO / BUSCA DE PEDIDO-----")
+                cpf = validar_cpf()
+                id_cliente = procurar_id_cliente(cpf)
+                pedido = buscar_pedido(id_cliente)
+                if pedido:
+                    total = 0
+                    print(f"#PEDIDO{pedido[0]}")
+                    for id, nome_produto, quantidade, valor in pedido:
+                        total += valor
+                        print(f"{nome_produto} x{quantidade} - R${valor:.2f}")
+                    print(f"Valor Total: R${total:.2f}")
+                elif not pedido:
+                    print("Nenhum Pedido Encontrado!")
+
+            elif opc == 6:
                 function_clear()
                 break
 
