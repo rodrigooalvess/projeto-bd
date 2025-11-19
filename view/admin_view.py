@@ -46,15 +46,19 @@ def admin_painel(logged):
                 alterar_valor_produto(id, valor_novo)
             elif opc == 6:
                 function_clear()
-                alt = int(input("1 - DESATIVAR PRODUTO \n 2 - REATIVAR PRODUTO"))
+                alt = int(input("1 - DESATIVAR PRODUTO \n2 - REATIVAR PRODUTO \n Digite a Opção: "))
                 if alt == 1:
+                    function_clear()
                     listar_produtos_ativos()
                     idp = int(input("Digite o Número do Produto: "))
                     desativar_produto(idp)
+                    time.sleep(3)
                 elif alt == 2:
+                    function_clear()
                     listar_produtos_inativos()
                     idp = int(input("Digite o Número do Produto: "))
                     reativar_produto(idp)
+                    time.sleep(3)
             elif opc == 7:
                 break
             else:
