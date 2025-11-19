@@ -1,4 +1,5 @@
-from services import calcular_valor_pedido, procurar_id_pedido, cardapio, desativar_funcionario, cadastrar_pedido, produtos_pedido, reativar_funcionario, alterar_produto, cadastrar_cliente, validar_cpf, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, clear, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
+from services import calcular_valor_pedido, procurar_id_pedido, cardapio, desativar_funcionario, cadastrar_pedido, produtos_pedido, reativar_funcionario, alterar_produto, cadastrar_cliente, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
+from utils import validar_cpf, clear
 import time
 
 def admin_painel(logged):

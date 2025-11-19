@@ -1,6 +1,7 @@
 import time
 import getpass
-from services import login, clear
+from services import login
+from utils import clear
 from view import caixa_painel, admin_painel, entregador_painel
 
 def main():
