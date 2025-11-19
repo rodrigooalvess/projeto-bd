@@ -11,8 +11,8 @@ create table FUNCIONARIOS(
 id_funcionario serial primary key, 
 nome_funcionario varchar(255) not null, 
 cpf_funcionario char(11) not null unique, 
-cargo varchar(255) not null,
-senha varchar(8) not null,
+cargo char(1) not null check (cargo in ('A', 'C', 'E')),
+senha varchar(100) not null,
 ativo boolean not null default true
 );
 

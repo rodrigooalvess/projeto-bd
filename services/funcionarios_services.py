@@ -35,7 +35,6 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
         con.rollback() #desfaz tudo que estava sendo feito na transação atual (commit) e retorna ao estado antes dela começar.
         time.sleep(3)
     except Exception as erro:
-        con.rollback()
         print(f"Erro: {erro}")
         time.sleep(3)
     finally:

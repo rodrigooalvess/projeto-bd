@@ -14,7 +14,7 @@ def admin_painel(logged):
                 print("-----CADASTRO DE FUNCIONÁRIO-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
-                cargo = input("Cargo: ").lower()
+                cargo = input("A - ADMIN \nC - CAIXA \nE - ENTREGADOR \nCargo: ").lower()
                 senha = input("Senha: ")
                 cadastro_funcionario(nome, cpf, cargo, senha)
             elif opc == 2:

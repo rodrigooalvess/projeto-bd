@@ -16,8 +16,8 @@ def cadastrar_cliente(nome: str, cpf: str, endereco: str = "Sem Endereço"):
         print(f"Cliente {cpf} cadastrado com sucesso!")
         time.sleep(3)
     except UniqueViolation:
-        print(f"Cliente {cpf} já cadastrado")
         con.rollback()
+        print(f"Cliente {cpf} já cadastrado")
         time.sleep(3)
     except Exception as erro:
         print(f"Erro ao cadastrar cliente: {erro}")
@@ -38,7 +38,8 @@ def atualizar_endereco(id_cliente: int, endereco: str):
         print(f"Endereço atualizado com sucesso!")
         time.sleep(3)
     except Exception as erro:
-        print(f"Erro ao atualizar dados do cliente: {erro}")
+        con.rollback()
+        print(f"Erro ao atualizar endereço do cliente: {erro}")
         time.sleep(3)
     finally:
         cursor.close()
