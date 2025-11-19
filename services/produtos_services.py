@@ -1,7 +1,6 @@
 import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
-from utils import function_pause
 
 def cadastrar_produto(nome: str, categoria: str, valor: float):
     try:

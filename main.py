@@ -1,25 +1,25 @@
 import time
 import getpass
 from services import login
-from utils import clear
+from utils import function_clear
 from view import caixa_painel, admin_painel, entregador_painel
 
 def main():
     rodando = True
     while rodando: 
         try:
-            clear()
+            function_clear()
             print("1 - LOGIN \n2 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
-                clear()
+                function_clear()
                 print("-----LOGIN-----")
                 usuario = input("Usuário (CPF): ")
                 senha = getpass.getpass("Senha: ")
                 logged = login(usuario, senha)
                 if logged:
-                    clear()
+                    function_clear()
                     print(f"Seja Bem-Vindo {usuario}\n")
                     time.sleep(3)
                     if logged[3].lower() == "admin" or logged[3].lower() == "chefe":

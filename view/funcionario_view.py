@@ -1,15 +1,15 @@
 from services import calcular_valor_pedido, procurar_id_pedido, cardapio, desativar_funcionario, cadastrar_pedido, produtos_pedido, reativar_funcionario, alterar_produto, cadastrar_cliente, atualizar_endereco, procurar_cliente, cadastro_funcionario, listar_funcionarios, cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, desativar_produto, reativar_produto
-from utils import validar_cpf, clear
+from utils import validar_cpf, function_clear
 import time
 
 def admin_painel(logged):
     while True:
         try:
-            clear()
+            function_clear()
             print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATUALIZAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - DESATIVAR/REATIVAR PRODUTO \n7 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
-                clear()
+                function_clear()
                 print("-----CADASTRO DE FUNCIONÁRIO-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
@@ -17,10 +17,10 @@ def admin_painel(logged):
                 senha = input("Senha: ")
                 cadastro_funcionario(nome, cpf, cargo, senha)
             elif opc == 2:
-                clear()
+                function_clear()
                 listar_funcionarios()
             elif opc == 3:
-                clear()
+                function_clear()
                 print("-----ATUALIZAR FUNCIONÁRIO-----")
                 alt = int(input("1 - DESATIVAR FUNCIONÁRIO \n2 - REATIVAR FUNCIONÁRIO \nDigite: "))
                 if alt == 1:
@@ -30,21 +30,21 @@ def admin_painel(logged):
                     cpf = input("Digite o CPF do Funcionário: ")
                     reativar_funcionario(cpf)
             elif opc == 4:
-                clear()
+                function_clear()
                 print("-----CADASTRAR PRODUTOS-----")
                 nome = input("Nome: ").upper()
                 categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper()
                 valor = float(input("Valor: "))
                 cadastrar_produto(nome, categoria, valor)
             elif opc == 5:
-                clear()
+                function_clear()
                 print("-----ALTERAR VALOR DO PRODUTO-----")
                 listar_produtos_ativos()
                 id = int(input("Digite o Número do Produto: "))
                 valor_novo = float(input("Digite o Novo Valor: "))
                 alterar_produto(id, valor_novo)
             elif opc == 6:
-                clear()
+                function_clear()
                 alt = int(input("1 - DESATIVAR PRODUTO \n 2 - REATIVAR PRODUTO"))
                 if alt == 1:
                     listar_produtos_ativos()
@@ -66,12 +66,12 @@ def admin_painel(logged):
 def caixa_painel(logged):
     while True:
         try:
-            clear()
+            function_clear()
             print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
-                clear()
+                function_clear()
                 print("-----CADASTRO DE CLIENTE-----")
                 nome = input("Nome: ")
                 cpf = validar_cpf()
@@ -82,14 +82,14 @@ def caixa_painel(logged):
                 else:
                     cadastrar_cliente(nome, cpf)
             elif opc == 2:
-                clear()
+                function_clear()
                 print("-----ENDEREÇO-----")
                 cpf = validar_cpf()
                 id = procurar_cliente(cpf)
                 endereco = input("Endereço: ")
                 atualizar_endereco(id, endereco)
             elif opc == 3:
-                clear()
+                function_clear()
                 print("-----INICIAR PEDIDO-----")
                 cpf = validar_cpf()
                 id_cliente = procurar_cliente(cpf)
@@ -116,7 +116,7 @@ def caixa_painel(logged):
 
 
             elif opc == 4:
-                clear()
+                function_clear()
                 break
             else:
                 print("Digite uma Opção Válida")

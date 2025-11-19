@@ -1,10 +1,10 @@
-from services import clear
+from utils import function_clear
 
 def validar_cpf():
     cpf = input("CPF: ")
     if len(cpf) != 11:
         while True:
-            clear()
+            function_clear()
             cpf = input("CPF Inválido, Digite Novamente: ")
             if len(cpf) == 11:
                 return cpf
