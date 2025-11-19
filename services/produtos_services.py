@@ -88,6 +88,7 @@ def desativar_produto(id: int):
     except Exception as erro:
         con.rollback()
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -107,6 +108,7 @@ def reativar_produto(id: int):
     except Exception as erro:
         con.rollback()
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -123,39 +125,90 @@ def procurar_produto(nome):
         return busca_resultado
     except Exception as erro:
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
 
-
+#ESTUDAR POIS GPT QUE FEZ
 def cardapio():
+    
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    CYAN = "\033[96m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    MAGENTA = "\033[95m"
+    BLUE = "\033[94m"
+
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria FROM PRODUTOS WHERE ativo = true ORDER BY categoria"
+        sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria FROM PRODUTOS WHERE ativo = true ORDER BY categoria, nome_produto"
         cursor.execute(sql)
         produtos = cursor.fetchall()
-        #[(idp1, nomep1, descp1, valorp1, categoriap1), (p2)...]
-        print("---CAFÉS---")
-        for id, nome, desc, valor, categoria in produtos:
-            if categoria == 'C':
-                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
-        print("---BEBIDAS---")
-        for id, nome, desc, valor, categoria in produtos:
-            if categoria == 'B':
-                print(f"{id} - {nome} - R${valor:.2f}")
-        print("---SALGADOS---")
-        for id, nome, desc, valor, categoria in produtos:
-            if categoria == 'S':
-                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
-        print("---DOCES---")
-        for id, nome, desc, valor, categoria in produtos:
-            if categoria == 'D':
-                print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+        categorias = {
+            "C": (f"{CYAN}{BOLD}☕ CAFÉS{RESET}", []),
+            "B": (f"{BLUE}{BOLD}🥤 BEBIDAS{RESET}", []),
+            "D": (f"{MAGENTA}{BOLD}🍰 DOCES{RESET}", []),
+            "S": (f"{YELLOW}{BOLD}🥪 SALGADOS{RESET}", []),
+        }
+        for p in produtos:
+            categorias[p[4]][1].append(p)
+        
+        print("\n" + "=" * 60)
+        print(f"{GREEN}{BOLD}{'CARDÁPIO DA CAFETERIA':^60}{RESET}")
+        print("=" * 60)
+
+        for cat, (titulo, items) in categorias.items():
+            if not items:
+                continue
+
+            print(f"\n{titulo}")
+            print("-" * 60)
+
+            for idp, nome, desc, preco, categoria in items:
+                print(f"{BOLD}{nome.upper()}{RESET}  -  R$ {preco:.2f}")
+                print(f"   {desc}\n")
+
+        print("=" * 60)
     except Exception as erro:
         print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
+
+# def cardapio():
+    
+#     try:
+#         con = conectar_banco()
+#         cursor = con.cursor()
+
+#         sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria FROM PRODUTOS WHERE ativo = true ORDER BY categoria, nome_produto"
+#         cursor.execute(sql)
+#         produtos = cursor.fetchall()
+#         #[(idp1, nomep1, descp1, valorp1, categoriap1), (p2)...]
+#         print("---CAFÉS---")
+#         for id, nome, desc, valor, categoria in produtos:
+#             if categoria == 'C':
+#                 print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+#         print("---BEBIDAS---")
+#         for id, nome, desc, valor, categoria in produtos:
+#             if categoria == 'B':
+#                 print(f"{id} - {nome} - R${valor:.2f}")
+#         print("---SALGADOS---")
+#         for id, nome, desc, valor, categoria in produtos:
+#             if categoria == 'S':
+#                 print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+#         print("---DOCES---")
+#         for id, nome, desc, valor, categoria in produtos:
+#             if categoria == 'D':
+#                 print(f"{id} - {nome} - R${valor:.2f}\n{desc}")
+#     except Exception as erro:
+#         print(f"Erro: {erro}")
+#     finally:
+#         cursor.close()
+#         con.close()
    

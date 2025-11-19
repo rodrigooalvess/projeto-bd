@@ -54,7 +54,6 @@ def procurar_id_cliente(cpf):
         cursor.execute(sql, (cpf,))
 
         id_cliente = cursor.fetchone()
-        print(id_cliente)
         
         if id_cliente:
             return id_cliente

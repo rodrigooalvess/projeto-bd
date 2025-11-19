@@ -28,8 +28,9 @@ def produtos_pedido(id_pedido, id_produto, quantidade, obs = ""):
 
         sql = "INSERT INTO PRODUTOS_PEDIDOS (id_pedido, id_produto, quantidade, observacao) VALUES (%s, %s, %s, %s)"
 
-    except Exception:
-        pass
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -40,15 +41,17 @@ def procurar_id_pedido(cpf):
         cursor = con.cursor()
 
         sql = "SELECT p.id_pedido FROM PEDIDOS p INNER JOIN CLIENTES c on p.id_pedido = c.cpf_cliente WHERE c.cpf_cliente = %s and p.status = 'P'"
-        cursor.execute(sql)
+        cursor.execute(sql, (cpf,))
         id_pedido_encontrado = cursor.fetchone()
+
         if id_pedido_encontrado:
             return id_pedido_encontrado
         else:
             print("Pedido Não Encontrado!")
             return None
-    except Exception:
-        print("teste")
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
@@ -65,11 +68,14 @@ def calcular_valor_pedido(id_pedido):
 
         sql_update_pedido = "UPDATE PEDIDOS SET valor_pedido = %s WHERE id_pedido = %s"
         cursor.execute(sql_update_pedido, (total, id_pedido))
+        con.commit()
 
         return total
 
-    except Exception:
-        print("teste")
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+        time.sleep(3)
     finally:
         cursor.close()
         con.close()
