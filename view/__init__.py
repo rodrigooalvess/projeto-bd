@@ -1,1 +1,3 @@
-from .funcionario_view import caixa_painel, admin_painel, entregador_painel
+from .caixa_view import caixa_painel
+from .admin_view import admin_painel
+from .entregador_view import entregador_painel

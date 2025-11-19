@@ -38,7 +38,7 @@ def listar_produtos_ativos():
         cursor.close()
         con.close()
 
-def alterar_produto(id: int, valor_novo: float):
+def alterar_valor_produto(id: int, valor_novo: float):
     try:
         con = conectar_banco()
         cursor = con.cursor()
