@@ -1,7 +1,7 @@
 import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
-from services import pause
+from services import function_pause
 
 def login(cpf, senha):
     try:
@@ -55,7 +55,7 @@ def listar_funcionarios():
             print("-----LISTANDO FUNCIONARIOS-----")
             for id, nome in users:
                 print(f"{id} - {nome}")
-            pause()
+            function_pause()
         elif not users:
             print("Nenhum Funcionário Cadastrado")
             time.sleep(3)
