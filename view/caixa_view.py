@@ -7,7 +7,7 @@ def caixa_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - SAIR")
+            print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - BUSCAR PRODUTO \n5 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
@@ -21,6 +21,7 @@ def caixa_painel(logged):
                     cadastrar_cliente(nome, cpf, endereco)
                 else:
                     cadastrar_cliente(nome, cpf)
+            
             elif opc == 2:
                 function_clear()
                 print("-----ENDEREÇO-----")
@@ -28,6 +29,7 @@ def caixa_painel(logged):
                 id = procurar_id_cliente(cpf)
                 endereco = input("Endereço: ")
                 atualizar_endereco(id, endereco)
+
             elif opc == 3:
                 function_clear()
                 print("-----INICIAR PEDIDO-----")
@@ -52,12 +54,11 @@ def caixa_painel(logged):
                     valor_total = calcular_valor_pedido(id_pedido)
                     print(f"Valor Total do Pedido: {valor_total:.2f}")
                     
-                nota = int(input("Deseja Nota Fiscal?"))
 
-
-            elif opc == 4:
+            elif opc == 5:
                 function_clear()
                 break
+
             else:
                 print("Digite uma Opção Válida")
                 time.sleep(3)
