@@ -44,7 +44,7 @@ def atualizar_endereco(id_cliente: int, endereco: str):
         cursor.close()
         con.close()
 
-def procurar_cliente(cpf):
+def procurar_id_cliente(cpf):
     try:
         con = conectar_banco()
         cursor = con.cursor()

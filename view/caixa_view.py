@@ -1,5 +1,5 @@
 from utils import function_clear, validar_cpf
-from services import cadastrar_cliente, procurar_cliente, atualizar_endereco
+from services import cadastrar_cliente, procurar_id_cliente, atualizar_endereco
 from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido
 import time
 
@@ -25,14 +25,14 @@ def caixa_painel(logged):
                 function_clear()
                 print("-----ENDEREÇO-----")
                 cpf = validar_cpf()
-                id = procurar_cliente(cpf)
+                id = procurar_id_cliente(cpf)
                 endereco = input("Endereço: ")
                 atualizar_endereco(id, endereco)
             elif opc == 3:
                 function_clear()
                 print("-----INICIAR PEDIDO-----")
                 cpf = validar_cpf()
-                id_cliente = procurar_cliente(cpf)
+                id_cliente = procurar_id_cliente(cpf)
                 id_funcionario_responsavel = logged[0]
                 modalidade = input("L - LOCAL \n E - ENTREGA \nDigite: ")
                 cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
