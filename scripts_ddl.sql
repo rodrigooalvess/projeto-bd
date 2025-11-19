@@ -1,5 +1,7 @@
 create database flowcoffee
 
+select * from funcionarios
+
 create table CLIENTES( 
 id_cliente serial primary key, 
 nome_cliente varchar(255) not null, 
@@ -12,7 +14,7 @@ id_funcionario serial primary key,
 nome_funcionario varchar(255) not null, 
 cpf_funcionario char(11) not null unique, 
 cargo char(1) not null check (cargo in ('A', 'C', 'E')),
-senha varchar(100) not null,
+senha bytea not null,
 ativo boolean not null default true
 );
 
@@ -33,7 +35,8 @@ id_funcionario integer not null,
 constraint fk_funcionario foreign key (id_funcionario) references FUNCIONARIOS (id_funcionario), 
 hora_pedido timestamp not null default CURRENT_TIMESTAMP, 
 valor_pedido double precision not null default 0, 
-modalidade char(1) not null check (modalidade in ('L', 'E')),
+modalidade char(1) check (modalidade in ('L', 'E')),
+pagamento char(1) not null check (pagamento in ('P', 'C', 'D')),
 status char(1) not null check (status in ('P', 'C', 'X')) default 'P'
 );
 
@@ -41,7 +44,7 @@ create table DELIVERY(
 id_delivery serial primary key, 
 id_pedido integer not null, 
 constraint fk_pedido foreign key (id_pedido) references PEDIDOS (id_pedido), 
-id_funcionario integer not null, 
+id_funcionario integer, 
 constraint fk_funcionario foreign key (id_funcionario) references FUNCIONARIOS (id_funcionario) 
 );
 

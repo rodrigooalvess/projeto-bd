@@ -2,17 +2,21 @@ import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 from utils import function_pause
+from utils import criptografar_senha, verificar_senha
 
 def login(cpf, senha):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and senha = %s and ativo = true"
-        cursor.execute(sql, (cpf, senha))
+        sql = "SELECT * FROM FUNCIONARIOS WHERE cpf_funcionario = %s and ativo = true"
+        cursor.execute(sql, (cpf,))
         user = cursor.fetchone() # retorna somente um
         #[id, nome, cpf, cargo, senha] or None
-        return user
+        if user and verificar_senha(senha, bytes(user[4])):
+            return user
+        else: 
+            return None
     except Exception as erro:
         print(f"Erro: {erro}")
         time.sleep(3)
@@ -24,6 +28,8 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
     try:
         con = conectar_banco()
         cursor = con.cursor()
+
+        senha = criptografar_senha(senha)
 
         sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, senha, cargo) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (nome, cpf, senha, cargo))
