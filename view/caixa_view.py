@@ -1,40 +1,37 @@
 from utils import function_clear, validar_cpf
 from services import cadastrar_cliente, procurar_id_cliente, atualizar_endereco
-from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido
+from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes
+from services import procurar_produto
 import time
 
 def caixa_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - CADASTRAR CLIENTE \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - INICIAR COMPRA \n4 - BUSCAR PRODUTO \n5 - SAIR")
+            print("1 - INICIAR PEDIDO \n2 - ALTERAR/ADICIONAR ENDERECO DO CLIENTE \n3 - BUSCAR PRODUTO \n4 - LISTAR PEDIDOS PENDENTES \n5 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
                 function_clear()
-                print("-----CADASTRO DE CLIENTE-----")
-                nome = input("Nome: ")
-                cpf = validar_cpf()
-                opcao = int(input("1 - SIM \n2 - NÃO \nDeseja cadastrar endereço? "))
-                if opcao == 1:
-                    endereco = input("Endereço: ")
-                    cadastrar_cliente(nome, cpf, endereco)
-                else:
-                    cadastrar_cliente(nome, cpf)
-            
-            elif opc == 2:
-                function_clear()
-                print("-----ENDEREÇO-----")
-                cpf = validar_cpf()
-                id = procurar_id_cliente(cpf)
-                endereco = input("Endereço: ")
-                atualizar_endereco(id, endereco)
-
-            elif opc == 3:
-                function_clear()
                 print("-----INICIAR PEDIDO-----")
-                cpf = validar_cpf()
-                id_cliente = procurar_id_cliente(cpf)
+                sn = int(input("1 - SIM \n2 - NÃO \nPossui Cadastro? "))
+                if sn == 1:
+                    cpf = validar_cpf()
+                    id_cliente = procurar_id_cliente(cpf)
+                
+                if sn == 2 or not id_cliente:
+                    print("-----CADASTRO DE CLIENTE-----")
+                    nome = input("Nome: ")
+                    cpf = validar_cpf()
+                    opcao = int(input("1 - SIM \n2 - NÃO \nDeseja cadastrar endereço? "))
+                    if opcao == 1:
+                        endereco = input("Endereço: ")
+                        cadastrar_cliente(nome, cpf, endereco)
+                    else:
+                        cadastrar_cliente(nome, cpf)
+                    
+                    id_cliente = procurar_id_cliente(cpf)
+                
                 id_funcionario_responsavel = logged[0]
                 modalidade = input("L - LOCAL \nE - ENTREGA \nDigite: ").upper()
 
@@ -61,7 +58,31 @@ def caixa_painel(logged):
                     for nome, quantidade, valorTotal in resumo_pedido:
                         print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
                     print(f"Valor Total do Pedido: {valor_total:.2f}")
-                    
+
+            elif opc == 2:
+                function_clear()
+                print("-----ENDEREÇO-----")
+                cpf = validar_cpf()
+                id = procurar_id_cliente(cpf)
+                endereco = input("Endereço: ")
+                atualizar_endereco(id, endereco)
+
+            elif opc == 3:
+                function_clear()
+                print("-----BUSCAR PRODUTO-----")
+                nome = input("Digite o Nome do Produto: ")
+                resultado = procurar_produto(nome)
+                if not resultado:
+                    print("Nenhum Produto Encontrado!")
+                else:
+                    for id, nome, valor in resultado:
+                        print(f"{nome} - R${valor:.2f}")
+
+            elif opc == 4:
+                print("-----LISTANDO PEDIDOS PENDENTES-----")
+                pedidos = listar_pedidos_pendentes()
+                for id, cliente, valor, modalidade in pedidos:
+                    print(f"{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
 
             elif opc == 5:
                 function_clear()

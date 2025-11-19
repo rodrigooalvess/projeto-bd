@@ -96,3 +96,20 @@ def calcular_valor_pedido(id_pedido):
     finally:
         cursor.close()
         con.close()
+
+def listar_pedidos_pendentes():
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT p.id_pedido, c.cpf_cliente, p.valor_pedido, p.modalidade FROM PEDIDOS p INNER JOIN CLIENTES c ON p.id_cliente = c.id_cliente WHERE p.satus = 'P' ORDER BY p.hora_pedido"
+        cursor.execute(sql)
+        pedidos = cursor.fetchall()
+        return pedidos
+
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
