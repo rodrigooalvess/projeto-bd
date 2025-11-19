@@ -22,11 +22,11 @@ def main():
                     function_clear()
                     print(f"Seja Bem-Vindo {usuario}\n")
                     time.sleep(3)
-                    if logged[3].lower() == "admin" or logged[3].lower() == "chefe":
+                    if logged[3] == "A":
                         admin_painel(logged)
-                    elif logged[3].lower() == "caixa":
+                    elif logged[3]== "C":
                         caixa_painel(logged)
-                    elif logged[3].lower() == "entregador":
+                    elif logged[3] == "E":
                         entregador_painel(logged)
                 elif not logged:
                     print("Usuário ou Senha Incorretos!")

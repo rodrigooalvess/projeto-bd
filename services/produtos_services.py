@@ -79,7 +79,7 @@ def desativar_produto(id: int):
         cursor = con.cursor()
 
         sql = "UPDATE PRODUTOS SET ativo = false WHERE id_produto = %s"
-        cursor.execute(sql, (id))
+        cursor.execute(sql, (id,))
         con.commit()
         if cursor.rowcount > 0: # rowcount conta quantas linhas foram alteradas no update
             print("Produto desativado com sucesso!")
@@ -98,7 +98,7 @@ def reativar_produto(id: int):
         cursor = con.cursor()
 
         sql = "UPDATE PRODUTOS SET ativo = true WHERE id_produto = %s"
-        cursor.execute(sql, (id))
+        cursor.execute(sql, (id,))
         con.commit()
         if cursor.rowcount > 0: # rowcount conta quantas linhas foram alteradas no update
             print("Produto reativado com sucesso!")
