@@ -1,5 +1,5 @@
 import time
-import getpass
+import pwinput
 from services import login
 from utils import function_clear
 from view import caixa_painel, admin_painel, entregador_painel
@@ -16,7 +16,7 @@ def main():
                 function_clear()
                 print("-----LOGIN-----")
                 usuario = input("Usuário (CPF): ")
-                senha = getpass.getpass("Senha: ")
+                senha = pwinput.pwinput(prompt="Senha: ", mask="*")
                 logged = login(usuario, senha)
                 if logged:
                     function_clear()
