@@ -1,6 +1,6 @@
 from utils import function_clear, validar_cpf
 from services import cadastrar_cliente, procurar_id_cliente, atualizar_endereco
-from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido
+from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido
 import time
 
 def caixa_painel(logged):
@@ -37,11 +37,14 @@ def caixa_painel(logged):
                 id_cliente = procurar_id_cliente(cpf)
                 id_funcionario_responsavel = logged[0]
                 modalidade = input("L - LOCAL \nE - ENTREGA \nDigite: ").upper()
+
                 cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
-                cardapio()
                 id_pedido = procurar_id_pedido(cpf)
+                cardapio()
+                
                 if id_pedido:
                     pedidos_produtos = True
+
                     while pedidos_produtos:
                         item = int(input("Digite o Número do Item Para Inserir no Pedido ou 0 Para Finalizar: "))
                         if item == 0: pedidos_produtos = False
@@ -50,8 +53,13 @@ def caixa_painel(logged):
                         produtos_pedido(id_pedido, item, qnt, obs)
                         finalizar = int(input("1 - SIM \n2 - NÃO \nDeseja Inserir mais Itens no Pedido?: "))
                         if finalizar == 2: pedidos_produtos = False
-                        elif finalizar == 1: pedidos_produtos = True    
+                        elif finalizar == 1: pedidos_produtos = True 
+
                     valor_total = calcular_valor_pedido(id_pedido)
+                    resumo_pedido = mostrar_resumo_pedido(id_cliente, id_pedido)
+                    #[]
+                    for nome, quantidade, valorTotal in resumo_pedido:
+                        print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
                     print(f"Valor Total do Pedido: {valor_total:.2f}")
                     
 

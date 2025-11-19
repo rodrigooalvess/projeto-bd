@@ -56,6 +56,23 @@ def procurar_id_pedido(cpf):
         cursor.close()
         con.close()
 
+def mostrar_resumo_pedido(id_cliente, id_pedido):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT nome_produto, quantidade, (quantidade*valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
+        cursor.execute(sql, (id_pedido, id_cliente))
+        resumo = cursor.fetchall()
+        return resumo
+
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
 def calcular_valor_pedido(id_pedido):
     try:
         con = conectar_banco()
