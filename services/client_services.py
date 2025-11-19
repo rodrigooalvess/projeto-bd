@@ -78,7 +78,7 @@ def listar_clientes():
             print("-----LISTANDO CLIENTES-----")
             for id, nome in users:
                 print(f"{id} - {nome}")
-            pause()
+            function_pause()
         elif not users:
             print("Nenhum Cliente Cadastrado")
             time.sleep(3)
