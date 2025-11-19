@@ -1,6 +1,6 @@
 from utils import function_clear, validar_cpf
 from services import cadastrar_cliente, procurar_id_cliente, atualizar_endereco
-from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes
+from services import cadastrar_pedido, cardapio, procurar_id_pedido, produtos_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes, associar_pedido_delivery
 from services import procurar_produto
 import time
 
@@ -37,6 +37,7 @@ def caixa_painel(logged):
 
                 cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
                 id_pedido = procurar_id_pedido(cpf)
+                if modalidade == 'E': associar_pedido_delivery(id_pedido)
                 cardapio()
                 
                 if id_pedido:

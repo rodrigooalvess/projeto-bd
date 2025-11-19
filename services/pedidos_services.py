@@ -113,3 +113,54 @@ def listar_pedidos_pendentes():
     finally:
         cursor.close()
         con.close()
+
+def listar_pedidos_entregar():
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT p.id_pedido, c.cpf_cliente, p.valor_pedido, c.endereco FROM PEDIDOS p INNER JOIN CLIENTES c ON p.id_cliente = c.id_cliente WHERE p.satus = 'P' and p.modalidade = 'E' ORDER BY p.hora_pedido"
+        cursor.execute(sql)
+        pedidos = cursor.fetchall()
+        return pedidos
+
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
+def associar_pedido_delivery(id_pedido):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "INSERT INTO DELIVERY (id_pedido) VALUES (%s)"
+        cursor.execute(sql, (id_pedido,))
+        con.commit()
+
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
+def associar_pedido_entregador(id_pedido, id_entregador):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "INSERT INTO DELIVERY (id_funcionario) VALUES (%s) WHERE id_pedido = %s"
+        cursor.execute(sql, (id_entregador, id_pedido))
+        con.commit()
+
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
