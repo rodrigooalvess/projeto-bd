@@ -34,7 +34,7 @@ def caixa_painel(logged):
                 cpf = validar_cpf()
                 id_cliente = procurar_id_cliente(cpf)
                 id_funcionario_responsavel = logged[0]
-                modalidade = input("L - LOCAL \nE - ENTREGA \nDigite: ").lower()
+                modalidade = input("L - LOCAL \nE - ENTREGA \nDigite: ").upper()
                 cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
                 cardapio()
                 id_pedido = procurar_id_pedido(cpf)

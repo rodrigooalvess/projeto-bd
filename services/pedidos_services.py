@@ -29,7 +29,7 @@ def produtos_pedido(id_pedido, id_produto, quantidade, obs = ""):
         sql = "INSERT INTO PRODUTOS_PEDIDOS (id_pedido, id_produto, quantidade, observacao) VALUES (%s, %s, %s, %s)"
 
     except Exception:
-        print("teste")
+        pass
     finally:
         cursor.close()
         con.close()

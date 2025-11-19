@@ -133,7 +133,7 @@ def cardapio():
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria, FROM PRODUTOS WHERE ativo = true ORDER BY categoria"
+        sql = "SELECT id_produto, nome_produto, descricao, valor_produto, categoria FROM PRODUTOS WHERE ativo = true ORDER BY categoria"
         cursor.execute(sql)
         produtos = cursor.fetchall()
         #[(idp1, nomep1, descp1, valorp1, categoriap1), (p2)...]
