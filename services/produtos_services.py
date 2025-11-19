@@ -111,6 +111,23 @@ def reativar_produto(id: int):
         cursor.close()
         con.close()
 
+def procurar_produto(nome):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "SELECT id_produto, nome_produto, valor_produto FROM PRODUTOS WHERE nome_produto ILIKE %s"
+        nome = f"%{nome}"
+        cursor.execute(sql, (nome,))
+        busca_resultado = cursor.fetchall() #[(id1, nome1, ...)...]
+        return busca_resultado
+    except Exception as erro:
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()
+
+
 def cardapio():
     try:
         con = conectar_banco()
