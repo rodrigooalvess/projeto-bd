@@ -1,4 +1,4 @@
 from .funcionarios_services import cadastro_funcionario, login, listar_funcionarios, desativar_funcionario, reativar_funcionario
 from .client_services import cadastrar_cliente, atualizar_endereco, procurar_id_cliente, listar_clientes
 from .produtos_services import cadastrar_produto, cardapio, listar_produtos_ativos, alterar_valor_produto, desativar_produto, reativar_produto, listar_produtos_inativos, procurar_produto
-from .pedidos_services import cadastrar_pedido, produtos_pedido, procurar_id_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes, associar_pedido_delivery, listar_pedidos_entregar, associar_pedido_entregador, buscar_pedido, pagamento_pedido, cancelar_pedido
+from .pedidos_services import cadastrar_pedido, produtos_pedido, procurar_id_pedido, calcular_valor_pedido, mostrar_resumo_pedido, listar_pedidos_pendentes, associar_pedido_delivery, listar_pedidos_entregar, associar_pedido_entregador, buscar_pedido, pagamento_pedido, cancelar_pedido, finalizar_pedido
