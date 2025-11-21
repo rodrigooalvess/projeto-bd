@@ -1,6 +1,8 @@
-from utils import function_clear, validar_cpf
+from utils import function_clear, validar_cpf, function_pause
 from services import cadastro_funcionario, listar_funcionarios, desativar_funcionario, reativar_funcionario
 from services import cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, alterar_valor_produto, desativar_produto, reativar_produto
+from services import listar_clientes
+from services import relatorio_total_vendas
 import time
 import pwinput
 
@@ -8,7 +10,7 @@ def admin_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATIVAR/DESATIVAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - DESATIVAR/REATIVAR PRODUTO \n7 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATIVAR/DESATIVAR FUNCIONARIOS \n4 - LISTAR CLIENTES \n5 - CADASTRAR PRODUTO \n6 - ALTERAR VALOR DO PRODUTO \n7 - DESATIVAR/REATIVAR PRODUTO \n8 - RELATORIOS \n9 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 function_clear()
@@ -40,19 +42,22 @@ def admin_painel(logged):
                     reativar_funcionario(cpf)
             elif opc == 4:
                 function_clear()
+                listar_clientes()
+            elif opc == 5:
+                function_clear()
                 print("-----CADASTRAR PRODUTOS-----")
                 nome = input("Nome: ").upper().strip()
                 categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper().strip()
                 valor = float(input("Valor: "))
                 cadastrar_produto(nome, categoria, valor)
-            elif opc == 5:
+            elif opc == 6:
                 function_clear()
                 print("-----ALTERAR VALOR DO PRODUTO-----")
                 listar_produtos_ativos()
                 id = int(input("Digite o Número do Produto: "))
                 valor_novo = float(input("Digite o Novo Valor: "))
                 alterar_valor_produto(id, valor_novo)
-            elif opc == 6:
+            elif opc == 7:
                 function_clear()
                 alt = int(input("1 - DESATIVAR PRODUTO \n2 - REATIVAR PRODUTO \n Digite a Opção: "))
                 if alt == 1:
@@ -67,7 +72,21 @@ def admin_painel(logged):
                     idp = int(input("Digite o Número do Produto: "))
                     reativar_produto(idp)
                     time.sleep(3)
-            elif opc == 7:
+            elif opc == 8:
+                function_clear()
+                resumo_faturamento = relatorio_total_vendas()
+                print("-----RELATÓRIO DE VENDAS/FATURAMENTO-----")
+                tipo = int(input("1 - RELATÓRIO DIÁRIO \n2 - RELATÓRIO SEMANAL \n3 - RELATÓRIO MENSAL \nSELECIONE: "))
+                if tipo == 1:
+                    print(f"FATURAMENTO DIÁRIO - R${resumo_faturamento[0]:.2f}")
+                    function_pause()
+                if tipo == 2:
+                    print(f"FATURAMENTO SEMANAL - R${resumo_faturamento[1]:.2f}")
+                    function_pause()
+                if tipo == 3:
+                    print(f"FATURAMENTO MENSAL - R${resumo_faturamento[2]:.2f}")
+                    function_pause()
+            elif opc == 9:
                 break
             else:
                 print("Digite uma Opção Válida")
