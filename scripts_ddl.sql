@@ -36,7 +36,7 @@ constraint fk_funcionario foreign key (id_funcionario) references FUNCIONARIOS (
 hora_pedido timestamp not null default CURRENT_TIMESTAMP, 
 valor_pedido double precision not null default 0, 
 modalidade char(1) check (modalidade in ('L', 'E')),
-pagamento char(1) not null check (pagamento in ('P', 'C', 'D')),
+pagamento char(1) check (pagamento in ('P', 'C', 'D')),
 status char(1) not null check (status in ('P', 'C', 'X')) default 'P'
 );
 
