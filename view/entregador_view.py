@@ -1,12 +1,12 @@
 from utils import function_clear
-from services import associar_pedido_entregador, listar_pedidos_entregar
+from services import associar_pedido_entregador, listar_pedidos_entregar, finalizar_pedido
 import time
 
 def entregador_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - SELECIONAR PEDIDO PARA ENTREGA \n2 - SAIR")
+            print("1 - SELECIONAR PEDIDO PARA ENTREGA \n3 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:
@@ -20,6 +20,7 @@ def entregador_painel(logged):
                 id_funcionario = logged[0]
 
                 associar_pedido_entregador(id_pedido, id_funcionario)
+                finalizar_pedido(id_pedido)
 
             elif opc == 2:
                 function_clear()

@@ -230,13 +230,13 @@ def cancelar_pedido(id_pedido, id_cliente):
         cursor.close()
         con.close()
 
-def finalizar_pedido(id_pedido, id_cliente):
+def finalizar_pedido(id_pedido):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "UPDATE PEDIDOS SET status = 'C' WHERE id_pedido = %s AND status != 'X' AND id_cliente = %s"
-        cursor.execute(sql, (id_pedido, id_cliente))
+        sql = "UPDATE PEDIDOS SET status = 'C' WHERE id_pedido = %s AND status != 'X'"
+        cursor.execute(sql, (id_pedido,))
         con.commit()
 
         print(f"Pedido#{id_pedido} FINALIZADO!")
