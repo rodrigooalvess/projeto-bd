@@ -14,6 +14,7 @@ def caixa_painel(logged):
             if opc == 1:
                 function_clear()
                 print("-----INICIAR PEDIDO-----")
+                id_cliente = None
                 sn = int(input("1 - SIM \n2 - NÃO \nPossui Cadastro? "))
                 if sn == 1:
                     cpf = validar_cpf()
@@ -56,10 +57,11 @@ def caixa_painel(logged):
                     valor_total = calcular_valor_pedido(id_pedido)
                     resumo_pedido = mostrar_resumo_pedido(id_cliente, id_pedido)
                     #[]
-                    for nome, quantidade, valorTotal in resumo_pedido:
-                        print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
-                    print(f"Valor Total do Pedido: {valor_total:.2f}")
-                    function_pause()
+                    if resumo_pedido:
+                        for nome, quantidade, valorTotal in resumo_pedido:
+                            print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
+                        print(f"Valor Total do Pedido: {valor_total:.2f}")
+                        function_pause()
 
             elif opc == 2:
                 print("-----CANCELAR/FINALIZAR PEDIDO-----")

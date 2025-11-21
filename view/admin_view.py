@@ -37,9 +37,11 @@ def admin_painel(logged):
                 if alt == 1:
                     cpf = input("Digite o CPF do Funcionário: ").strip()
                     desativar_funcionario(cpf)
+                    time.sleep(3)
                 elif alt == 2:
                     cpf = input("Digite o CPF do Funcionário: ").strip()
                     reativar_funcionario(cpf)
+                    time.sleep(3)
             elif opc == 4:
                 function_clear()
                 listar_clientes()
@@ -49,7 +51,8 @@ def admin_painel(logged):
                 nome = input("Nome: ").upper().strip()
                 categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper().strip()
                 valor = float(input("Valor: "))
-                cadastrar_produto(nome, categoria, valor)
+                descricao = input("Digite uma Descrição do Produto ou Pressione ENTER: ")
+                cadastrar_produto(nome, categoria, valor, descricao)
             elif opc == 6:
                 function_clear()
                 print("-----ALTERAR VALOR DO PRODUTO-----")

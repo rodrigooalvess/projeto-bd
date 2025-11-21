@@ -2,12 +2,12 @@ import time
 from psycopg2.errors import UniqueViolation
 from config.database import conectar_banco
 
-def cadastrar_produto(nome: str, categoria: str, valor: float):
+def cadastrar_produto(nome: str, categoria: str, valor: float, descricao: str = ""):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "INSERT INTO PRODUTOS (nome_produto, categoria, valor_produto) values (%s, %s, %s)"
+        sql = "INSERT INTO PRODUTOS (nome_produto, categoria, valor_produto, descricao) values (%s, %s, %s, %s)"
         cursor.execute(sql, (nome, categoria, valor))
         con.commit()
 
@@ -26,7 +26,7 @@ def listar_produtos_ativos():
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT id_produto, nome_produto, valor_produto FROM PRODUTOS WHERE ativo = true ORDER BY categoria"
+        sql = "SELECT id_produto, nome_produto, valor_produto FROM PRODUTOS WHERE ativo = true ORDER BY id_produto"
         cursor.execute(sql)
         produtos = cursor.fetchall()
         for id, nome, valor in produtos:
@@ -169,7 +169,7 @@ def cardapio():
             print("-" * 60)
 
             for idp, nome, desc, preco, categoria in items:
-                print(f"{BOLD}{nome.upper()}{RESET}  -  R$ {preco:.2f}")
+                print(f"{BOLD}{idp} - {nome.upper()}{RESET}  -  R$ {preco:.2f}")
                 print(f"   {desc}\n")
 
         print("=" * 60)
