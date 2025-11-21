@@ -142,7 +142,7 @@ def listar_pedidos_entregar():
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT p.id_pedido, c.cpf_cliente, p.valor_pedido, c.endereco FROM PEDIDOS p INNER JOIN CLIENTES c ON p.id_cliente = c.id_cliente WHERE p.satus = 'P' and p.modalidade = 'E' ORDER BY p.hora_pedido"
+        sql = "SELECT p.id_pedido, c.cpf_cliente, p.valor_pedido, c.endereco FROM PEDIDOS p INNER JOIN CLIENTES c ON p.id_cliente = c.id_cliente WHERE p.status = 'P' and p.modalidade = 'E' ORDER BY p.hora_pedido"
         cursor.execute(sql)
         pedidos = cursor.fetchall()
         return pedidos
@@ -198,8 +198,8 @@ def buscar_pedido(id_cliente):
         id_pedido = cursor.fetchone()
         if not id_pedido: return None
 
-        sql = "SELECT pp.id_pedido, pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
-        cursor.execute(sql, (id_pedido, id_cliente))
+        sql = "SELECT pp.id_pedido, pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s"
+        cursor.execute(sql, (id_pedido,))
         resumo = cursor.fetchall()
         return resumo
 

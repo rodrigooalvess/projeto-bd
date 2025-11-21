@@ -6,7 +6,7 @@ def entregador_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - SELECIONAR PEDIDO PARA ENTREGA \n3 - SAIR")
+            print("1 - SELECIONAR PEDIDO PARA ENTREGA \n2 - SAIR")
             opc = int(input("Digite uma Opção: "))
 
             if opc == 1:

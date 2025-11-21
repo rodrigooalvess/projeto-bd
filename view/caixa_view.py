@@ -125,7 +125,7 @@ def caixa_painel(logged):
                 pedidos = listar_pedidos_pendentes()
                 if pedidos:
                     for id, cliente, valor, modalidade in pedidos:
-                        print(f"{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
+                        print(f"PEDIDO#{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
                     function_pause()
                 elif not pedidos:
                     print("Nenhum Pedido Pendente!")
@@ -137,7 +137,7 @@ def caixa_painel(logged):
                 pedido = buscar_pedido(id_cliente)
                 if pedido:
                     total = 0
-                    print(f"\n#PEDIDO{pedido[0]}")
+                    print(f"\n#PEDIDO{pedido[0][0]}")
                     for id, nome_produto, quantidade, valor in pedido:
                         total += valor
                         print(f"{nome_produto} x{quantidade} - R${valor:.2f}")
