@@ -53,7 +53,7 @@ def procurar_id_cliente(cpf):
         sql = "SELECT id_cliente FROM CLIENTES WHERE cpf_cliente = %s"
         cursor.execute(sql, (cpf,))
 
-        id_cliente = cursor.fetchone()
+        id_cliente = cursor.fetchone()[0]
         
         if id_cliente:
             return id_cliente
@@ -71,14 +71,14 @@ def listar_clientes():
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "SELECT id_cliente, nome_cliente FROM FUNCIONARIOS ORDER BY cargo"
+        sql = "SELECT id_cliente, nome_cliente, cpf_cliente FROM CLIENTES ORDER BY id_cliente"
         cursor.execute(sql)
         users = cursor.fetchall()
-        #[(id1, nome1), (id2,nome2), ...]
+        #[(id1, nome1, cpf1), (id2, nome2, cpf2), ...]
         if users:
             print("-----LISTANDO CLIENTES-----")
-            for id, nome in users:
-                print(f"{id} - {nome}")
+            for id, nome, cpf in users:
+                print(f"{id} - {nome} - {cpf}")
             function_pause()
         elif not users:
             print("Nenhum Cliente Cadastrado")

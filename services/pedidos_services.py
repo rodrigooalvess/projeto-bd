@@ -65,7 +65,7 @@ def procurar_id_pedido(cpf):
 
         sql = "SELECT p.id_pedido FROM PEDIDOS p INNER JOIN CLIENTES c on p.id_cliente = c.id_cliente WHERE c.cpf_cliente = %s and p.status = 'P'"
         cursor.execute(sql, (cpf,))
-        id_pedido_encontrado = cursor.fetchone()
+        id_pedido_encontrado = cursor.fetchone()[0]
 
         if id_pedido_encontrado:
             return id_pedido_encontrado
@@ -195,7 +195,7 @@ def buscar_pedido(id_cliente):
 
         sql1 = "SELECT id_pedido FROM PEDIDOS WHERE id_cliente = %s and status = 'P'"
         cursor.execute(sql1, (id_cliente,))
-        id_pedido = cursor.fetchone()
+        id_pedido = cursor.fetchone()[0]
         if not id_pedido: return None
 
         sql = "SELECT pp.id_pedido, pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"
@@ -204,6 +204,26 @@ def buscar_pedido(id_cliente):
         return resumo
 
     except Exception as erro:
+        print(f"Erro: {erro}")
+        time.sleep(3)
+    finally:
+        cursor.close()
+        con.close()
+
+def cancelar_pedido(id_pedido, id_cliente):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "UPDATE PEDIDOS SET status = 'X' WHERE id_pedido = %s AND status != 'C' AND id_cliente = %s"
+        cursor.execute(sql, (id_pedido, id_cliente))
+        con.commit()
+
+        print(f"Pedido#{id_pedido} CANCELADO!")
+        time.sleep(3)
+
+    except Exception as erro:
+        con.rollback()
         print(f"Erro: {erro}")
         time.sleep(3)
     finally:

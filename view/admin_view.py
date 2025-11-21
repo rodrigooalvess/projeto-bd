@@ -25,7 +25,6 @@ def admin_painel(logged):
                         break
                     else:
                         print("Senhas Não Coincidem!")
-                cadastro_funcionario(nome, cpf, cargo, senha)
             elif opc == 2:
                 function_clear()
                 listar_funcionarios()
