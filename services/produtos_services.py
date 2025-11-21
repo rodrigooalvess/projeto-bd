@@ -119,7 +119,7 @@ def procurar_produto(nome):
         cursor = con.cursor()
 
         sql = "SELECT id_produto, nome_produto, valor_produto FROM PRODUTOS WHERE nome_produto ILIKE %s"
-        nome = f"%{nome}"
+        nome = f"%{nome}%"
         cursor.execute(sql, (nome,))
         busca_resultado = cursor.fetchall() #[(id1, nome1, ...)...]
         return busca_resultado

@@ -21,13 +21,13 @@ def cadastrar_pedido(id_cliente: int, id_funcionario: int, modalidade: str):
         cursor.close()
         con.close()
 
-def pagamento_pedido(modo_de_pagamento):
+def pagamento_pedido(modo_de_pagamento, id_pedido):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
-        sql = "INSERT INTO PEDIDOS (pagamento) values (%s)"
-        cursor.execute(sql, (modo_de_pagamento,))
+        sql = "UPDATE PEDIDOS SET pagamento = (%s) WHERE id_pedido = %s"
+        cursor.execute(sql, (modo_de_pagamento, id_pedido))
         con.commit()
 
         print("Pagamento Realizado Com Sucesso!")
@@ -79,13 +79,13 @@ def procurar_id_pedido(cpf):
         cursor.close()
         con.close()
 
-def mostrar_resumo_pedido(id_cliente, id_pedido):
+def mostrar_resumo_pedido(id_pedido):
     try:
         con = conectar_banco()
         cursor = con.cursor()
 
         sql = "SELECT pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s"
-        cursor.execute(sql, (id_pedido, id_cliente))
+        cursor.execute(sql, (id_pedido,))
         resumo = cursor.fetchall()
         return resumo
 
@@ -195,7 +195,7 @@ def buscar_pedido(id_cliente):
 
         sql1 = "SELECT id_pedido FROM PEDIDOS WHERE id_cliente = %s and status = 'P'"
         cursor.execute(sql1, (id_cliente,))
-        id_pedido = cursor.fetchone()[0]
+        id_pedido = cursor.fetchone()
         if not id_pedido: return None
 
         sql = "SELECT pp.id_pedido, pr.nome_produto, pp.quantidade, (pp.quantidade*pr.valor_produto) as total_item FROM PRODUTOS pr INNER JOIN PRODUTOS_PEDIDOS pp ON pr.id_produto = pp.id_produto WHERE pp.id_pedido = %s AND pp.id_cliente = %s"

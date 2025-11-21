@@ -79,16 +79,19 @@ def admin_painel(logged):
                 function_clear()
                 resumo_faturamento = relatorio_total_vendas()
                 print("-----RELATÓRIO DE VENDAS/FATURAMENTO-----")
-                tipo = int(input("1 - RELATÓRIO DIÁRIO \n2 - RELATÓRIO SEMANAL \n3 - RELATÓRIO MENSAL \nSELECIONE: "))
-                if tipo == 1:
-                    print(f"FATURAMENTO DIÁRIO - R${resumo_faturamento[0]:.2f}")
-                    function_pause()
-                if tipo == 2:
-                    print(f"FATURAMENTO SEMANAL - R${resumo_faturamento[1]:.2f}")
-                    function_pause()
-                if tipo == 3:
-                    print(f"FATURAMENTO MENSAL - R${resumo_faturamento[2]:.2f}")
-                    function_pause()
+                if resumo_faturamento:
+                    tipo = int(input("1 - RELATÓRIO DIÁRIO \n2 - RELATÓRIO SEMANAL \n3 - RELATÓRIO MENSAL \nSELECIONE: "))
+                    if tipo == 1:
+                        print(f"FATURAMENTO DIÁRIO - R${resumo_faturamento[0]:.2f}")
+                        function_pause()
+                    if tipo == 2:
+                        print(f"FATURAMENTO SEMANAL - R${resumo_faturamento[1]:.2f}")
+                        function_pause()
+                    if tipo == 3:
+                        print(f"FATURAMENTO MENSAL - R${resumo_faturamento[2]:.2f}")
+                        function_pause()
+                if not resumo_faturamento:
+                    print("Nenhum Pedido Finalizado nesse Periodo!")
             elif opc == 9:
                 break
             else:

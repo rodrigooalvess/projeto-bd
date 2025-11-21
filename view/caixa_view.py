@@ -34,29 +34,34 @@ def caixa_painel(logged):
                     id_cliente = procurar_id_cliente(cpf)
                 
                 id_funcionario_responsavel = logged[0]
+                function_clear()
                 modalidade = input("L - LOCAL \nE - ENTREGA \nDigite: ").upper()
+
+                while modalidade not in ("L", "E"):
+                    modalidade = input("DIGITE UM VALOR VÁLIDO PARA MODALIDADE\nL - LOCAL \nE - ENTREGA \nDigite: ").upper()
+                    
 
                 cadastrar_pedido(id_cliente, id_funcionario_responsavel, modalidade)
                 id_pedido = procurar_id_pedido(cpf)
                 if modalidade == 'E': associar_pedido_delivery(id_pedido)
-                cardapio()
                 
                 if id_pedido:
-                    pedidos_produtos = True
 
-                    while pedidos_produtos:
+                    while True:
+                        function_clear()
+                        cardapio()
                         item = int(input("Digite o Número do Item Para Inserir no Pedido ou 0 Para Finalizar: "))
                         if item == 0: break
                         qnt = int(input("Quantidade: "))
                         obs = input("PRESSIONE ENTER SE NÃO HOUVER OBSERVAÇÃO \nObservação: ")
                         produtos_pedido(id_pedido, item, qnt, obs)
                         finalizar = int(input("1 - SIM \n2 - NÃO \nDeseja Inserir mais Itens no Pedido?: "))
-                        if finalizar == 2: pedidos_produtos = False
-                        elif finalizar == 1: pedidos_produtos = True 
-
+                        if finalizar == 2: break 
+                    function_clear()
                     valor_total = calcular_valor_pedido(id_pedido)
-                    resumo_pedido = mostrar_resumo_pedido(id_cliente, id_pedido)
+                    resumo_pedido = mostrar_resumo_pedido(id_pedido)
                     #[]
+                    print("-----RESUMO DO PEDIDO-----")
                     if resumo_pedido:
                         for nome, quantidade, valorTotal in resumo_pedido:
                             print(f"{nome} ----- x{quantidade} - R${valorTotal:.2f}")
@@ -78,10 +83,10 @@ def caixa_painel(logged):
                     cpf = validar_cpf()
                     id_cliente = procurar_id_cliente(cpf)
                     id_pedido = procurar_id_pedido(cpf)
-                    resumo = mostrar_resumo_pedido(id_cliente, id_pedido)
+                    resumo = mostrar_resumo_pedido(id_pedido)
                     if resumo:
                         total = 0
-                        print(f"PEDIDO#{id_pedido}")
+                        print(f"\nPEDIDO#{id_pedido}")
                         for nome, quantidade, valor in resumo:
                             print(f"{nome} x{quantidade} - R${valor:.2f}")
                             total += valor
@@ -90,8 +95,8 @@ def caixa_painel(logged):
                         metodo = input("\nP - PIX \nC - CARTÃO DÉBITO/CRÉDITO \nD - DINHEIRO \nMétodo de Pagamento: ").upper().strip()
                         while metodo not in ("P", "C", "D"):
                                 metodo = input("\nDigite um Método Válido \nP - PIX \nC - CARTÃO DÉBITO/CRÉDITO \nD - DINHEIRO \nMétodo de Pagamento: ").upper().strip()
-                        pagamento_pedido(metodo)
-                        finalizar_pedido(id_pedido, id_cliente)
+                        pagamento_pedido(metodo, id_pedido)
+                        finalizar_pedido(id_pedido)
                     elif not resumo:
                         print("Nenhum Pedido Encontrado!")
 
@@ -99,41 +104,47 @@ def caixa_painel(logged):
                 function_clear()
                 print("-----ENDEREÇO-----")
                 cpf = validar_cpf()
-                id = procurar_id_cliente(cpf)[0]
+                id = procurar_id_cliente(cpf)
                 endereco = input("Endereço: ")
                 atualizar_endereco(id, endereco)
 
             elif opc == 4:
                 function_clear()
                 print("-----BUSCAR PRODUTO-----")
-                nome = input("Digite o Nome do Produto: ")
+                nome = input("Digite o Nome do Produto: ").upper()
                 resultado = procurar_produto(nome)
                 if not resultado:
                     print("Nenhum Produto Encontrado!")
                 else:
                     for id, nome, valor in resultado:
                         print(f"{nome} - R${valor:.2f}")
+                function_pause()
 
             elif opc == 5:
                 print("-----LISTANDO PEDIDOS PENDENTES-----")
                 pedidos = listar_pedidos_pendentes()
-                for id, cliente, valor, modalidade in pedidos:
-                    print(f"{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
-
+                if pedidos:
+                    for id, cliente, valor, modalidade in pedidos:
+                        print(f"{id} - CPF CLIENTE: {cliente} - R${valor:.2f}")
+                    function_pause()
+                elif not pedidos:
+                    print("Nenhum Pedido Pendente!")
+                    function_pause()
             elif opc == 6:
-                print("-----DETALHES DE UM PEDIDO / BUSCA DE PEDIDO-----")
+                print("-----DETALHES DE UM PEDIDO / BUSCA DE PEDIDO PENDENTE-----")
                 cpf = validar_cpf()
                 id_cliente = procurar_id_cliente(cpf)
-                pedido = buscar_pedido(cpf)
+                pedido = buscar_pedido(id_cliente)
                 if pedido:
                     total = 0
-                    print(f"#PEDIDO{pedido[0]}")
+                    print(f"\n#PEDIDO{pedido[0]}")
                     for id, nome_produto, quantidade, valor in pedido:
                         total += valor
                         print(f"{nome_produto} x{quantidade} - R${valor:.2f}")
                     print(f"Valor Total: R${total:.2f}")
                 elif not pedido:
-                    print("Nenhum Pedido Encontrado!")
+                    print("Nenhum Pedido Pendente Encontrado!")
+                function_pause()
 
             elif opc == 7:
                 function_clear()
