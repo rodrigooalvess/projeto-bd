@@ -2,39 +2,48 @@ from utils import function_clear, validar_cpf
 from services import cadastro_funcionario, listar_funcionarios, desativar_funcionario, reativar_funcionario
 from services import cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, alterar_valor_produto, desativar_produto, reativar_produto
 import time
+import pwinput
 
 def admin_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATUALIZAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - DESATIVAR/REATIVAR PRODUTO \n7 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATIVAR/DESATIVAR FUNCIONARIOS \n4 - CADASTRAR PRODUTO \n5 - ALTERAR VALOR DO PRODUTO \n6 - DESATIVAR/REATIVAR PRODUTO \n7 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 function_clear()
                 print("-----CADASTRO DE FUNCIONÁRIO-----")
-                nome = input("Nome: ")
+                nome = input("Nome: ").strip()
                 cpf = validar_cpf()
-                cargo = input("A - ADMIN \nC - CAIXA \nE - ENTREGADOR \nCargo: ").lower()
-                senha = input("Senha: ")
+                cargo = input("A - ADMIN \nC - CAIXA \nE - ENTREGADOR \nCargo: ").upper().strip()
+                while True:
+                    senha = pwinput.pwinput(prompt="Cadastre Sua Senha: ", mask="*").strip()
+                    confirmacao = pwinput.pwinput(prompt="Digite Novamente Sua Senha: ", mask="*").strip()
+
+                    if senha == confirmacao: 
+                        cadastro_funcionario(nome, cpf, cargo, senha)
+                        break
+                    else:
+                        print("Senhas Não Coincidem!")
                 cadastro_funcionario(nome, cpf, cargo, senha)
             elif opc == 2:
                 function_clear()
                 listar_funcionarios()
             elif opc == 3:
                 function_clear()
-                print("-----ATUALIZAR FUNCIONÁRIO-----")
+                print("-----ATIVAR/DESATIVAR FUNCIONÁRIO-----")
                 alt = int(input("1 - DESATIVAR FUNCIONÁRIO \n2 - REATIVAR FUNCIONÁRIO \nDigite: "))
                 if alt == 1:
-                    cpf = input("Digite o CPF do Funcionário: ")
+                    cpf = input("Digite o CPF do Funcionário: ").strip()
                     desativar_funcionario(cpf)
                 elif alt == 2:
-                    cpf = input("Digite o CPF do Funcionário: ")
+                    cpf = input("Digite o CPF do Funcionário: ").strip()
                     reativar_funcionario(cpf)
             elif opc == 4:
                 function_clear()
                 print("-----CADASTRAR PRODUTOS-----")
-                nome = input("Nome: ").upper()
-                categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper()
+                nome = input("Nome: ").upper().strip()
+                categoria = input("C - CAFÉS \nB - BEBIDAS \nS - SALGADOS \nD - DOCES \nDIGITE UMA CATEGORIA: ").upper().strip()
                 valor = float(input("Valor: "))
                 cadastrar_produto(nome, categoria, valor)
             elif opc == 5:

@@ -34,7 +34,8 @@ def cadastro_funcionario(nome: str, cpf: str, cargo: str, senha: str):
         sql = "INSERT INTO FUNCIONARIOS (nome_funcionario, cpf_funcionario, senha, cargo) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (nome, cpf, senha, cargo))
         con.commit()
-        print(f"Usuário {cpf} cadastrado com sucesso !")
+        print(f"Funcionário {cpf} cadastrado com sucesso !")
+        time.sleep(3)
 
     except UniqueViolation:
         print(f"Erro: CPF {cpf} já cadstrado")
