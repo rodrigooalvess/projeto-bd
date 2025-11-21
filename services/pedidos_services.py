@@ -47,8 +47,11 @@ def produtos_pedido(id_pedido, id_produto, quantidade, obs = ""):
         cursor = con.cursor()
 
         sql = "INSERT INTO PRODUTOS_PEDIDOS (id_pedido, id_produto, quantidade, observacao) VALUES (%s, %s, %s, %s)"
+        cursor.execute(sql, (id_pedido, id_produto, quantidade, obs))
+        con.commit()
 
     except Exception as erro:
+        con.rollback()
         print(f"Erro: {erro}")
         time.sleep(3)
     finally:
