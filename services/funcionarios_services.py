@@ -109,3 +109,22 @@ def reativar_funcionario(cpf):
     finally:
         cursor.close()
         con.close()
+
+def excluir_funcionario(cpf):
+    try:
+        con = conectar_banco()
+        cursor = con.cursor()
+
+        sql = "DELETE FROM FUNCIONARIOS WHERE cpf_funcionario = %s"
+        cursor.execute(sql, (cpf,)) # tem que ter , pra ser enviado com tupla
+        con.commit()
+        if cursor.rowcount > 0: # rowcount conta quantas linhas foram alteradas no update
+            print(f"Funcionário {cpf} excluido com sucesso!")
+        else:
+            print("Nenhum Funcionário Encontrado")
+    except Exception as erro:
+        con.rollback()
+        print(f"Erro: {erro}")
+    finally:
+        cursor.close()
+        con.close()

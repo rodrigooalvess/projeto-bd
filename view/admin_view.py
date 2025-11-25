@@ -1,5 +1,5 @@
 from utils import function_clear, validar_cpf, function_pause
-from services import cadastro_funcionario, listar_funcionarios, desativar_funcionario, reativar_funcionario
+from services import cadastro_funcionario, excluir_funcionario, listar_funcionarios, desativar_funcionario, reativar_funcionario
 from services import cadastrar_produto, listar_produtos_ativos, listar_produtos_inativos, alterar_valor_produto, desativar_produto, reativar_produto
 from services import listar_clientes
 from services import relatorio_total_vendas
@@ -10,7 +10,7 @@ def admin_painel(logged):
     while True:
         try:
             function_clear()
-            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATIVAR/DESATIVAR FUNCIONARIOS \n4 - LISTAR CLIENTES \n5 - CADASTRAR PRODUTO \n6 - ALTERAR VALOR DO PRODUTO \n7 - DESATIVAR/REATIVAR PRODUTO \n8 - RELATORIOS \n9 - SAIR")
+            print("1 - CADASTRAR FUNCIONARIO \n2 - LISTAR FUNCIONARIOS \n3 - ATIVAR/DESATIVAR FUNCIONARIOS \n4 - LISTAR CLIENTES \n5 - CADASTRAR PRODUTO \n6 - ALTERAR VALOR DO PRODUTO \n7 - DESATIVAR/REATIVAR PRODUTO \n8 - RELATORIOS \n9 - EXCLUIR FUNCIONARIO \n10 - SAIR")
             opc = int(input("Digite uma Opção: "))
             if opc == 1:
                 function_clear()
@@ -93,6 +93,12 @@ def admin_painel(logged):
                 if not resumo_faturamento:
                     print("Nenhum Pedido Finalizado nesse Periodo!")
             elif opc == 9:
+                function_clear()
+                print("-----EXCLUIR FUNCIONÁRIO-----")
+                cpf = validar_cpf()
+                desativar_funcionario(cpf)
+                time.sleep(3)
+            elif opc == 10:
                 break
             else:
                 print("Digite uma Opção Válida")
